@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.14)
+project(lem-in C)
+
+set(CMAKE_C_STANDARD 99)
+
+add_executable(lem-in
+                input.c
+                error_management.c
+                graph.c
+                lem-in.c
+                tests.c graph.h)
+
+add_subdirectory(libft)
+
+add_subdirectory(utils)
+
+target_link_libraries(lem-in ft ut)
