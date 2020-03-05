@@ -55,6 +55,8 @@ void                push_nieghbors(t_vertice_node *vertice, char *name, t_vertic
 t_vertice_node      *getnth(t_graph *graph, char *src, char *link, t_vertice_node **ref);
 void                add_niegh_and_link (t_graph *graph, char *src, char *dst);
 void                print_graph(t_graph *graph);
+void	            delete_graph(t_graph **graph);
+
 
 
 #endif

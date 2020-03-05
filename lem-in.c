@@ -10,5 +10,6 @@ int	main(int argc, char **argv)
     graph = init_graph();
 	fill_graph(fd, graph);
 	print_graph(graph);
+	delete_graph(&graph);
 	return (0);
 }
