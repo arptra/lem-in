@@ -56,6 +56,7 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
         add_niegh_and_link(graph, src, dst);
+        add_niegh_and_link(graph, dst, src);
     }
 }
 
