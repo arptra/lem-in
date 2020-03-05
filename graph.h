@@ -15,6 +15,8 @@ typedef struct s_adjacent       t_adjacent;
 struct s_adjacent
 {
     char            *name;
+    int             weight;
+    int             dist;
     t_vertice_node  *elem_in_main_list;
     t_adjacent      *next;
 };
@@ -24,8 +26,7 @@ struct s_vertice_node
     char 			*name;
     int 			x;
     int 			y;
-    int				start;
-    int 			end;
+    t_vertice_node  *parent;
     t_adjacent      *neigbors;
     t_vertice_node  *next;
     t_vertice_node  *prev;
@@ -36,6 +37,8 @@ typedef struct		s_graph
     int 			size;
     t_vertice_node	*head;
     t_vertice_node	*tail;
+    t_vertice_node	*start;
+    t_vertice_node	*end;
 }					t_graph;
 
 typedef struct 		s_room

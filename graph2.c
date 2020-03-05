@@ -33,7 +33,7 @@ void    print_graph(t_graph *graph)
     t_adjacent *niegh;
 
     tmp = graph->head;
-    ft_putendl("Adjacency list of vertex");
+    ft_putendl("Adjacency list of vertex with weight");
     while (tmp)
     {
         ft_putstr(tmp->name);
@@ -41,13 +41,20 @@ void    print_graph(t_graph *graph)
         niegh = tmp->neigbors;
         while (niegh)
         {
+            ft_putstr("(");
             ft_putstr(niegh->name);
-            ft_putstr(" ");
+            ft_putstr(";");
+            ft_putnbr(niegh->weight);
+            ft_putstr(") ");
             niegh = niegh->next;
         }
         ft_putendl("]");
         tmp = tmp->next;
     }
+    ft_putendl("\nSTART ROOM");
+    ft_putstr(graph->start->name);
+    ft_putendl("\nEND ROOM");
+    ft_putstr(graph->end->name);
 }
 
 
