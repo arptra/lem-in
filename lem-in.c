@@ -2,10 +2,13 @@
 
 int	main(int argc, char **argv)
 {
-	int fd;
-	
-	fd = open(argv[1], O_RDONLY);
-	test();
-	fill_graph(fd);
+	int     fd;
+    t_graph *graph;
+
+    fd = open(argv[1], O_RDONLY);
+
+    graph = init_graph();
+	fill_graph(fd, graph);
+	print_graph(graph);
 	return (0);
 }

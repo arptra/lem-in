@@ -8,10 +8,9 @@ add_executable(lem-in
                 error_management.c
                 graph.c
                 lem-in.c
-                tests.c graph.h)
+                tests.c graph.h graph2.c)
 
 add_subdirectory(libft)
 
-add_subdirectory(utils)
 
-target_link_libraries(lem-in ft ut)
+target_link_libraries(lem-in ft)

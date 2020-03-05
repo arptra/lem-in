@@ -2,33 +2,36 @@
 
 /*
  *
- * 		    0 ---- 1 ----
+ * 		    A ---- B ----
  *			|     /|      \
  *			|    / |       \
- *          |   /  |        2
+ *          |   /  |        E
  *          |  /   |       /
  * 		    | /    |      /
- *          4 ---- 3 ----
+ *          C ---- D ----
  */
 
 // Driver program to test graph functions
 int test()
 {
 	// create the graph given in above fugure
-	int		V;
-	t_graph	*graph;
-	
-	V = 5;
-	graph = create_graph(V);
-	add_edge(graph, 0, 1);
-	add_edge(graph, 0, 4);
-	add_edge(graph, 1, 2);
-	add_edge(graph, 1, 3);
-	add_edge(graph, 1, 4);
-	add_edge(graph, 2, 3);
-	add_edge(graph, 3, 4);
-	
-	// print the adjacency list representation of the above graph
-	print_graph(graph);
-	return (0);
+	t_graph         *graph;
+	t_vertice_node  *src;
+    t_vertice_node  *link;
+
+    /*
+	graph = init_graph();
+	add_vertice_node(graph, "A");
+    add_vertice_node(graph, "B");
+    add_vertice_node(graph, "C");
+    add_vertice_node(graph, "D");
+    add_vertice_node(graph, "E");
+
+    src = getnth(graph, "A", "B", &link);
+    push_nieghbors(src, "B", link);
+
+    src = getnth(graph, "A", "C", &link);
+    push_nieghbors(src, "C", link);
+    */
+    return (0);
 }

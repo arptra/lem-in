@@ -1,68 +1,114 @@
 #include "lem-in.h"
 
-t_adjlistnode	*new_adj_list_node(int dest)
+t_graph         *init_graph()
 {
-	t_adjlistnode	*newNode;
-	
-	newNode = (t_adjlistnode*) malloc(sizeof(t_adjlistnode));
-	newNode->dest = dest;
-	newNode->next = NULL;
-	return newNode;
+    t_graph *tmp;
+
+    tmp = (t_graph *) malloc(sizeof(t_vertice_node));
+    tmp->head = NULL;
+    tmp->tail = NULL;
+    tmp->size = 0;
+    return (tmp);
 }
 
-t_graph	*create_graph(int V)
+t_adjacent      *add_nieghbors()
 {
-	t_graph*	graph;
-	int			i;
-	
-	graph = (t_graph*) malloc(sizeof(t_graph));
-	graph->V = V;
-	// Create an array of adjacency lists.  Size of
-	// array will be V
-	graph->array =(t_adjlist*) malloc(V * sizeof(t_adjlist));
-	
-	// Initialize each adjacency list as empty by
-	// making head as NULL
-	i = -1;
-	while(++i < V)
-		graph->array[i].head = NULL;
-	return (graph);
+    t_adjacent *tmp;
+
+    tmp = (t_adjacent*)malloc(sizeof(t_adjacent));
+    if (tmp == NULL)
+        return (NULL);
+    tmp->next = NULL;
+    tmp->name = NULL;
+    tmp->elem_in_main_list = NULL;
+    return (tmp);
 }
 
-// Adds an edge to an undirected graph
-void			add_edge(t_graph *graph, int src, int dest)
+int             add_vertice_node(t_graph *graph, t_room *room)
 {
-	// Add an edge from src to dest.  A new node is
-	// added to the adjacency list of src.  The node
-	// is added at the begining
-	t_adjlistnode	*newNode;
-	
-	newNode = new_adj_list_node(dest);
-	newNode->next = graph->array[src].head;
-	graph->array[src].head = newNode;
-	
-	// Since graph is undirected, add an edge from
-	// dest to src also
-	newNode = new_adj_list_node(src);
-	newNode->next = graph->array[dest].head;
-	graph->array[dest].head = newNode;
+    t_vertice_node  *tmp;
+
+    tmp = (t_vertice_node *)malloc(sizeof(t_vertice_node));
+    if (tmp == NULL)
+        return (0);
+    tmp->neigbors = add_nieghbors();
+    if (tmp->neigbors == NULL)
+        return (0);
+    tmp->name = room->name;
+    tmp->x = room->x;
+    tmp->y = room->y;
+    tmp->name = room->name;
+    tmp->start = room->start;
+    tmp->end = room->end;
+    tmp->next = NULL;
+    tmp->prev = graph->tail;
+    if (graph->tail)
+        graph->tail->next = tmp;
+    graph->tail = tmp;
+    if (graph->head == NULL)
+        graph->head = tmp;
+    graph->size++;
+    return (1);
 }
 
-void			print_graph(t_graph	*graph)
+void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_node *ref)
 {
-	int v;
-	t_adjlistnode	*pCrawl;
-	
-	v = -1;
-	while(++v < graph->V)
-	{
-		pCrawl = graph->array[v].head;
-		printf("\n Adjacency list of vertex %d\n head ", v);
-		while (pCrawl)
-		{
-			printf("-> %d", pCrawl->dest);
-			pCrawl = pCrawl->next;
-		}
-		printf("\n");
-	}
+    t_adjacent *cur;
+
+    cur = vertice->neigbors;
+    if (cur->name == NULL)
+    {
+        cur->name = name;
+        cur->elem_in_main_list = ref;
+        cur->next = NULL;
+    }
+    else
+    {
+        while (cur->next != NULL)
+            cur = cur->next;
+        cur->next = (t_adjacent *) malloc(sizeof(t_adjacent));
+        cur->next->name = name;
+        cur->next->elem_in_main_list = ref;
+        cur->next->next = NULL;
+    }
+}
+
+t_vertice_node *getnth(t_graph *graph, char *src, char *link, t_vertice_node **ref)
+{
+    t_vertice_node *tmp;
+    t_vertice_node *save;
+    int             s;
+    int             l;
+
+    s = 1;
+    l = 1;
+    tmp = graph->head;
+    while (tmp && ((s = ft_strcmp(tmp->name, src)) != 0 &&
+                    (l = ft_strcmp(tmp->name, link)) != 0))
+            tmp = tmp->next;
+    save = tmp;
+    if (s == 0 && l != 0)
+    {
+        while (tmp && ft_strcmp(tmp->name, link) != 0 )
+            tmp = tmp->next;
+        *ref = tmp;
+        return (save);
+    }
+    else if (l == 0 && s != 0)
+    {
+        while (tmp && ft_strcmp(tmp->name, src) != 0 )
+            tmp = tmp->next;
+        *ref = save;
+        return (tmp);
+    }
+    return (NULL);
+}
+
+void            add_niegh_and_link (t_graph *graph, char *src, char *dst)
+{
+    t_vertice_node  *from;
+    t_vertice_node  *link;
+
+    from = getnth(graph, src, dst, &link);
+    push_nieghbors(from, dst, link);
 }

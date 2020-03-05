@@ -5,44 +5,56 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "lem-in.h"
-
 /*
  * A structure to represent an adjacency list node
  */
-typedef struct				s_adjlistnode
-{
-	int						dest;
-	struct s_adjlistnode	*next;
-}							t_adjlistnode;
 
-/*
- * A structure to represent an adjacency list
- */
-typedef struct			s_adjlist
-{
-	char 				*name;
-	t_adjlistnode		*head;
-}						t_adjlist;
+typedef struct s_vertice_node   t_vertice_node;
+typedef struct s_adjacent       t_adjacent;
 
-/*
- * A structure to represent a graph. A graph
- * is an array of adjacency lists.
- * Size of array will be V (number of vertices in graph)
- */
+struct s_adjacent
+{
+    char            *name;
+    t_vertice_node  *elem_in_main_list;
+    t_adjacent      *next;
+};
+
+struct s_vertice_node
+{
+    char 			*name;
+    int 			x;
+    int 			y;
+    int				start;
+    int 			end;
+    t_adjacent      *neigbors;
+    t_vertice_node  *next;
+    t_vertice_node  *prev;
+};
+
 typedef struct		s_graph
 {
-	int				V;
-	t_adjlist		*array;
+    int 			size;
+    t_vertice_node	*head;
+    t_vertice_node	*tail;
 }					t_graph;
 
-t_adjlistnode	*new_adj_list_node(int dest);
-// A utility function that creates a graph of V vertices
-t_graph			*create_graph(int V);
-// Adds an edge to an undirected graph
-void			add_edge(t_graph *graph, int src, int dest);
-// A utility function to print the adjacency list
-// representation of graph
-void			print_graph(t_graph	*graph);
+typedef struct 		s_room
+{
+    int 			x;
+    int 			y;
+    char 			*name;
+    int				start;
+    int 			end;
+}					t_room;
 
-#endif //GRAPH_H
+
+t_graph             *init_graph();
+t_adjacent          *add_nieghbors();
+int                 add_vertice_node(t_graph *graph, t_room *room);
+void                push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_node *ref);
+t_vertice_node      *getnth(t_graph *graph, char *src, char *link, t_vertice_node **ref);
+void                add_niegh_and_link (t_graph *graph, char *src, char *dst);
+void                print_graph(t_graph *graph);
+
+
+#endif
