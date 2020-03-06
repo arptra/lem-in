@@ -16,7 +16,6 @@ struct s_adjacent
 {
     char            *name;
     int             weight;
-    int             dist;
     t_vertice_node  *elem_in_main_list;
     t_adjacent      *next;
 };
@@ -26,6 +25,7 @@ struct s_vertice_node
     char 			*name;
     int 			x;
     int 			y;
+    int             dist;
     t_vertice_node  *parent;
     t_adjacent      *neigbors;
     t_vertice_node  *next;
@@ -41,6 +41,9 @@ typedef struct		s_graph
     t_vertice_node	*end;
 }					t_graph;
 
+/*
+ *  struct for parse map's file
+ */
 typedef struct 		s_room
 {
     int 			x;

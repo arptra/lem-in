@@ -10,6 +10,9 @@ int	main(int argc, char **argv)
     graph = init_graph();
 	fill_graph(fd, graph);
 	print_graph(graph);
+
+    ssp_finder(graph);
+    print_ssp(graph);
 	delete_graph(&graph);
 	return (0);
 }

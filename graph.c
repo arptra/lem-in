@@ -20,7 +20,6 @@ t_adjacent      *add_nieghbors()
     tmp = (t_adjacent*)malloc(sizeof(t_adjacent));
     if (tmp == NULL)
         return (NULL);
-    tmp->dist = 0;
     tmp->weight = 0;
     tmp->next = NULL;
     tmp->name = NULL;
@@ -38,6 +37,7 @@ int             add_vertice_node(t_graph *graph, t_room *room)
     tmp->neigbors = add_nieghbors();
     if (tmp->neigbors == NULL)
         return (0);
+    tmp->dist = INT32_MAX;
     tmp->name = room->name;
     tmp->x = room->x;
     tmp->y = room->y;
@@ -67,7 +67,6 @@ void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_no
     {
         cur->name = name;
         cur->weight = 1;
-        cur->dist = INT32_MAX;
         cur->elem_in_main_list = ref;
         cur->next = NULL;
     }
@@ -78,7 +77,6 @@ void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_no
         cur->next = (t_adjacent *) malloc(sizeof(t_adjacent));
         cur->next->name = name;
         cur->next->weight = 1;
-        cur->next->dist = INT32_MAX;
         cur->next->elem_in_main_list = ref;
         cur->next->next = NULL;
     }
