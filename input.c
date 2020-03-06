@@ -45,7 +45,8 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
         input->name = ft_strdup(buf);
         i = i + get_coord(&line[i], &input->x);
         i = i + get_coord(&line[i], &input->y);
-        add_vertice_node(graph, input);
+        //  Intercept INPUT and check if value ok, else raise ERROR
+        add_vertex_node(graph, input); // add new vertex in graph
     }
 	else if (line[i] == '-')
     {
@@ -55,8 +56,9 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	    while (line[++i] != '\0')
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
-        add_niegh_and_link(graph, src, dst);
-        add_niegh_and_link(graph, dst, src);
+        //  Intercept SRC and DST and check if value ok, else raise ERROR
+        add_niegh_and_link(graph, src, dst); //add new link between SRC and DST
+        add_niegh_and_link(graph, dst, src); // and vice verse
     }
 }
 

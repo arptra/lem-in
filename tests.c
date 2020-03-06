@@ -25,7 +25,7 @@ int test()
     add_vertice_node(graph, "B");
     add_vertice_node(graph, "C");
     add_vertice_node(graph, "D");
-    add_vertice_node(graph, "E");
+    add_vertex_node(graph, "E");
 
     src = getnth(graph, "A", "B", &link);
     push_nieghbors(src, "B", link);

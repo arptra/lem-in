@@ -27,7 +27,7 @@ t_adjacent      *add_nieghbors()
     return (tmp);
 }
 
-int             add_vertice_node(t_graph *graph, t_room *room)
+int             add_vertex_node(t_graph *graph, t_room *room)
 {
     t_vertice_node  *tmp;
 

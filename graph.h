@@ -56,7 +56,7 @@ typedef struct 		s_room
 
 t_graph             *init_graph();
 t_adjacent          *add_nieghbors();
-int                 add_vertice_node(t_graph *graph, t_room *room);
+int                 add_vertex_node(t_graph *graph, t_room *room);
 void                push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_node *ref);
 t_vertice_node      *getnth(t_graph *graph, char *src, char *link, t_vertice_node **ref);
 void                add_niegh_and_link (t_graph *graph, char *src, char *dst);

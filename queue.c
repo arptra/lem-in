@@ -103,7 +103,7 @@ t_vertice_node		*popback(t_queue *queue)
     return (tmp);
 }
 
-void		delete_elem(t_queue *queue, t_node *elm)
+void		        delete_elem(t_queue *queue, t_node *elm)
 {
     if (elm == NULL)
         exit(5);
