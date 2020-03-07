@@ -15,6 +15,7 @@ static int 	get_coord(const char *line, int *numb)
 		buf[j++] = line[i++];
 	buf[i] = '\0';
 	*numb = ft_atoi(buf);
+	ft_chck_arg((*numb = ft_atoi(buf)), buf) ? ft_error() : *numb;
 	return (i);
 }
 
@@ -34,7 +35,7 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	char	buf[FILL_BUFF];
 	char    *src;
 	char    *dst;
-	
+
 	i = -1;
 	ft_strclr(buf);
 	while (line[++i] != '\0' && line[i] != ' ' && line[i] != '-')
@@ -42,10 +43,11 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	buf[i] = '\0';
 	if (line[i] == ' ')
 	{
-        input->name = ft_strdup(buf);
+        (buf[0] != 'L' && buf[0] != '\0' && !ft_strchr(buf,'-')) ?
+			(input->name = ft_strdup(buf)) : ft_error();
         i = i + get_coord(&line[i], &input->x);
         i = i + get_coord(&line[i], &input->y);
-        //  Intercept INPUT and check if value ok, else raise ERROR
+		ft_chck_nm_w_crdnts(input, graph) ? ft_error() : 1;
         add_vertex_node(graph, input); // add new vertex in graph
     }
 	else if (line[i] == '-')
@@ -56,7 +58,7 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	    while (line[++i] != '\0')
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
-        // Intercept SRC and DST and check if value ok, else raise ERROR
+		(ft_chk_name(dst, graph) && ft_chk_name(src, graph)) ? 1 : ft_error();
         add_niegh_and_link(graph, src, dst, 1); // add new link between SRC and DST
         add_niegh_and_link(graph, dst, src, 1); // and vice verse
     }
@@ -69,13 +71,16 @@ void	    fill_graph(int fd, t_graph *graph)
 
 	input = (t_room *)malloc(sizeof(t_room));
 	reset_input(input);
+	get_next_line(fd, &line);
+	(ft_chck_arg((graph->ants = ft_atoi(line)), line) || graph->ants < 0) ?
+		ft_error() : free(line);
 	while(get_next_line(fd, &line))
 	{
 		//ft_putendl(line);
 		if (!ft_strcmp("##start", line))
-			input->start = 1;
+			graph->start ? (input->start = 1) : ft_error();
 		else if (!ft_strcmp("##end", line))
-			input->end = 1;
+			graph->end ? (input->end = 1) : ft_error();
 		else if (line[0] == '#')
 			;
 		else

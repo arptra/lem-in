@@ -11,6 +11,8 @@ t_graph         *init_graph()
     tmp->end = NULL;
     tmp->size = 0;
     tmp->ants = 0;
+	tmp->names = NULL;
+	tmp->crdnts = NULL;
     return (tmp);
 }
 

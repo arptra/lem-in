@@ -24,8 +24,15 @@ void    vertex_dup(t_graph *graph, t_vertice_node *node);
 
 void    print_paths(t_vertice_node *from);
 
+/* ************************************************************************** */
+/*   written by: klekisha                                                     */
+/* ************************************************************************** */
 
-
-
+void	ft_error();
+int		ft_chck_arg(int intgr, const char *strng);
+int		ft_chck_nm_w_crdnts(t_room *input, t_graph *graph);
+int		ft_chk_name(const char *name, t_graph *graph);
+void	ft_del_crdnts(t_crdnts **crdnts);
+void	ft_del_names(t_names **names);
 
 #endif //LEM_IN_H

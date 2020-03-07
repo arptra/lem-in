@@ -13,6 +13,7 @@ int	main(int argc, char **argv)
 	print_graph(graph);
 
     ssp_finder(graph, graph->start);
+	graph->end->parent ? 1 : ft_error();
     backward_path(graph);
     /*
     print_ssp(graph);
