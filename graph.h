@@ -11,6 +11,22 @@
 
 typedef struct s_vertice_node   t_vertice_node;
 typedef struct s_adjacent       t_adjacent;
+typedef struct s_names       	t_names;
+typedef struct s_crdnts      	t_crdnts;
+
+struct s_names
+{
+	char			*name;
+	t_names			*next;
+};
+
+struct s_crdnts
+{
+	int				*x;
+	int				*y;
+	t_crdnts		*next;
+};
+
 
 struct s_adjacent
 {
@@ -47,6 +63,8 @@ typedef struct		s_graph
     t_vertice_node	*tail;
     t_vertice_node	*start;
     t_vertice_node	*end;
+	t_names			*names;
+	t_crdnts		*crdnts;
 }					t_graph;
 /*
  *  struct for parse map's file
@@ -75,4 +93,9 @@ void                stick_toghether(t_graph *graph);
 void                print_graph(t_graph *graph);
 void	            delete_graph(t_graph **graph);
 
+/* ************************************************************************** */
+/*   written by: klekisha                                                     */
+/* ************************************************************************** */
+t_names				*ft_nw_name(const char *name);
+t_crdnts			*ft_nw_crdnts(const int x, const int y);
 #endif

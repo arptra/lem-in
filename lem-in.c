@@ -15,7 +15,19 @@ int	main(int argc, char **argv)
 	fill_graph(fd, graph);
 
     ssp_finder(graph, graph->start);
-    connect_parents(graph->end);
+    // connect_parents(graph->end);
+	graph->end->parent ? 1 : ft_error();
+    backward_path(graph);
+    //print_ssp(graph);
+    print_paths(graph->start);
+    /*
+	test = find_elem(graph, "11");
+	//devide vertex that pass on find path
+	vertex_dup(graph, test);
+    print_graph(graph);
+
+    vertex_dup(graph, test->to);
+    print_graph(graph);
 
     i = 10;
     prev_moves = INT32_MAX;
