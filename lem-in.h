@@ -14,8 +14,18 @@
 int		test();
 void	fill_graph(int fd, t_graph *graph);
 
-void    ssp_finder(t_graph *graph);
+void    ssp_finder(t_graph *graph, t_vertice_node *node);
 void    print_ssp(t_graph *graph);
+void    backward_path(t_graph *graph);
+
+t_adjacent      *find_self(t_vertice_node *vertex, t_adjacent *tmp);
+void    add_niegh_dup(t_graph *graph, t_vertice_node *node);
+void    vertex_dup(t_graph *graph, t_vertice_node *node);
+
+void    print_paths(t_vertice_node *from);
+
+
+
 
 
 #endif //LEM_IN_H

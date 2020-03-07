@@ -2,16 +2,16 @@
 
 void    relabele_vertices(t_vertice_node *start, t_queue *queue)
 {
-    t_adjacent		    *links;
+    t_adjacent		    *niegh;
     int		            w;
     t_vertice_node		*dst;
     int			        new_dist;
 
-    links = start->neigbors;
-    while (links != NULL)
+    niegh = start->neigbors;
+    while (niegh != NULL && niegh->visit == 1)
     {
-        w = links->weight;
-        dst = links->elem_in_main_list;
+        w = niegh->weight;
+        dst = niegh->elem_in_main_list;
         new_dist = start->dist + w;
         if (new_dist < dst->dist)
         {
@@ -19,17 +19,17 @@ void    relabele_vertices(t_vertice_node *start, t_queue *queue)
             dst->parent = start;
             pushback(queue, dst);
         }
-        links = links->next;
+        niegh = niegh->next;
     }
 }
 
-void    ssp_finder(t_graph *graph)
+void    ssp_finder(t_graph *graph, t_vertice_node *node)
 {
     t_vertice_node  *start;
     t_vertice_node  *end;
     t_queue         *queue;
 
-    start = graph->start;
+    start = node;
     end = graph->end;
     queue = init_queue();
     start->dist = 0;
@@ -56,4 +56,5 @@ void    print_ssp(t_graph *graph)
             ft_putstr(" -> ");
         tmp = tmp->parent;
     }
+    ft_putchar('\n');
 }

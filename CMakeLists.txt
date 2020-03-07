@@ -8,7 +8,12 @@ add_executable(lem-in
                 error_management.c
                 graph.c
                 lem-in.c
-                tests.c graph.h graph2.c ssp_finder.c queue.c queue.h)
+                tests.c graph.h
+        graph2.c
+        ssp_finder.c
+        queue.c
+        queue.h
+        all_disjoint_paths.c)
 
 add_subdirectory(libft)
 

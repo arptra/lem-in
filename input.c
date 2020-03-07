@@ -56,9 +56,9 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	    while (line[++i] != '\0')
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
-        //  Intercept SRC and DST and check if value ok, else raise ERROR
-        add_niegh_and_link(graph, src, dst); //add new link between SRC and DST
-        add_niegh_and_link(graph, dst, src); // and vice verse
+        // Intercept SRC and DST and check if value ok, else raise ERROR
+        add_niegh_and_link(graph, src, dst, 1); // add new link between SRC and DST
+        add_niegh_and_link(graph, dst, src, 1); // and vice verse
     }
 }
 
@@ -71,7 +71,7 @@ void	    fill_graph(int fd, t_graph *graph)
 	reset_input(input);
 	while(get_next_line(fd, &line))
 	{
-		ft_putendl(line);
+		//ft_putendl(line);
 		if (!ft_strcmp("##start", line))
 			input->start = 1;
 		else if (!ft_strcmp("##end", line))

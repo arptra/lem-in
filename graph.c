@@ -10,6 +10,7 @@ t_graph         *init_graph()
     tmp->start = NULL;
     tmp->end = NULL;
     tmp->size = 0;
+    tmp->ants = 0;
     return (tmp);
 }
 
@@ -21,6 +22,7 @@ t_adjacent      *add_nieghbors()
     if (tmp == NULL)
         return (NULL);
     tmp->weight = 0;
+    tmp->visit = 0;
     tmp->next = NULL;
     tmp->name = NULL;
     tmp->elem_in_main_list = NULL;
@@ -43,6 +45,8 @@ int             add_vertex_node(t_graph *graph, t_room *room)
     tmp->y = room->y;
     tmp->name = room->name;
     tmp->parent = NULL;
+    tmp->from = NULL;
+    tmp->to = NULL;
     tmp->next = NULL;
     tmp->prev = graph->tail;
     if (graph->tail)
@@ -58,7 +62,7 @@ int             add_vertex_node(t_graph *graph, t_room *room)
     return (1);
 }
 
-void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_node *ref)
+void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_node *ref, int weight)
 {
     t_adjacent *cur;
 
@@ -66,7 +70,8 @@ void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_no
     if (cur->name == NULL)
     {
         cur->name = name;
-        cur->weight = 1;
+        cur->weight = weight;
+        cur->visit = 1;
         cur->elem_in_main_list = ref;
         cur->next = NULL;
     }
@@ -76,7 +81,8 @@ void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_no
             cur = cur->next;
         cur->next = (t_adjacent *) malloc(sizeof(t_adjacent));
         cur->next->name = name;
-        cur->next->weight = 1;
+        cur->next->weight = weight;
+        cur->next->visit = 1;
         cur->next->elem_in_main_list = ref;
         cur->next->next = NULL;
     }
@@ -111,13 +117,4 @@ t_vertice_node *getnth(t_graph *graph, char *src, char *link, t_vertice_node **r
         return (tmp);
     }
     return (NULL);
-}
-
-void            add_niegh_and_link (t_graph *graph, char *src, char *dst)
-{
-    t_vertice_node  *from;
-    t_vertice_node  *link;
-
-    from = getnth(graph, src, dst, &link);
-    push_nieghbors(from, dst, link);
 }

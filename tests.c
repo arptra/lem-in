@@ -21,10 +21,10 @@ int test()
 
     /*
 	graph = init_graph();
-	add_vertice_node(graph, "A");
-    add_vertice_node(graph, "B");
-    add_vertice_node(graph, "C");
-    add_vertice_node(graph, "D");
+	add_vertex_node(graph, "A");
+    add_vertex_node(graph, "B");
+    add_vertex_node(graph, "C");
+    add_vertex_node(graph, "D");
     add_vertex_node(graph, "E");
 
     src = getnth(graph, "A", "B", &link);
