@@ -69,6 +69,7 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
 		(!ft_chk_name(dst, graph) || !ft_chk_name(src, graph)) ? ft_error() : 1;
+		// (ft_chk_name(dst, graph) && ft_chk_name(src, graph)) ? 1 : ft_error();
         add_niegh_and_link(graph, src, dst, 1); // add new link between SRC and DST
         add_niegh_and_link(graph, dst, src, 1); // and vice verse
         free(src);
@@ -92,9 +93,15 @@ void	    fill_graph(int fd, t_graph *graph)
 	{
 		ft_putendl(line);
 		if (!ft_strcmp("##start", line))
+<<<<<<< HEAD
 			(!graph->start && !input->end) ? (input->start = 1) : ft_error();
 		else if (!ft_strcmp("##end", line))
 			(!graph->end && !input->start) ? (input->end = 1) : ft_error();
+=======
+			graph->start ? (input->start = 1) : ft_error();
+		else if (!ft_strcmp("##end", line))
+			graph->end ? (input->end = 1) : ft_error();
+>>>>>>> All checks from TODO ready for testing
 		else if (line[0] == '#')
 			;
 		else if (i == 0)

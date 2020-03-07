@@ -25,10 +25,10 @@ int	main(int argc, char **argv)
 	//devide vertex that pass on find path
 	vertex_dup(graph, test);
     print_graph(graph);
-
+	
     vertex_dup(graph, test->to);
     print_graph(graph);
-
+	*/
     i = 10;
     prev_moves = INT32_MAX;
     paths = init_paths();
