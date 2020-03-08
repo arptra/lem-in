@@ -2,3 +2,9 @@
 ##start
 as;ljdf
 r1 1 1
+#[ATTENTION] INCORRECT VALIDATION
+#Adjacency list of vertex with weight
+#r1 -> [ (; w=0; v=0) ]
+#
+#START ROOM
+#zsh: segmentation fault  ./lem-in maps/validation_errs/cmd_bad_using4.txt
