@@ -5,3 +5,4 @@ r1 2 1
 #this is end room
 r2 2 2
 r1-r2
+#[ATTENTION]map is valid

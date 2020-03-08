@@ -4,3 +4,12 @@ r1 1 1
 ##end
 #lol
 olol
+#ATTENTION, INCORRECT VALIDATION
+#Adjacency list of vertex with weight
+#r1 -> [ (; w=0; v=0) ]
+#
+#START ROOM
+#r1
+#END ROOM
+#zsh: segmentation fault  ./lem-in maps/validation_errs/cmd_bad_using3.txt
+#[SMTHING STRANGE]next tests shows coreect work, if passed first line as a comment
