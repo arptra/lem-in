@@ -1,3 +1,4 @@
+#[ATTENTION]map is valid
 3
 ##start
 ##hoho
