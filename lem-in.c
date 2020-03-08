@@ -7,11 +7,7 @@ int	main(int argc, char **argv)
     t_paths *paths;
     int     prev_moves;
 
-
-    if (argc > 1)
-        fd = open(argv[1], O_RDONLY);
-    else
-        fd = 0;
+	fd = open(argv[1], O_RDONLY);
 
     graph = init_graph();
 	fill_graph(fd, graph);
