@@ -94,6 +94,7 @@ void	    fill_graph(int fd, t_graph *graph)
 		ft_putendl(line);
 		if (!ft_strcmp("##start", line))
 <<<<<<< HEAD
+<<<<<<< HEAD
 			(!graph->start && !input->end) ? (input->start = 1) : ft_error();
 		else if (!ft_strcmp("##end", line))
 			(!graph->end && !input->start) ? (input->end = 1) : ft_error();
@@ -102,6 +103,11 @@ void	    fill_graph(int fd, t_graph *graph)
 		else if (!ft_strcmp("##end", line))
 			graph->end ? (input->end = 1) : ft_error();
 >>>>>>> All checks from TODO ready for testing
+=======
+			(!graph->start && !input->end) ? (input->start = 1) : ft_error();
+		else if (!ft_strcmp("##end", line))
+			(!graph->end && !input->start) ? (input->end = 1) : ft_error();
+>>>>>>> Checks ready and tested. 1 check failed.
 		else if (line[0] == '#')
 			;
 		else if (i == 0)
