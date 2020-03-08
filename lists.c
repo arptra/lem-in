@@ -40,8 +40,10 @@ void		ft_del_names(t_names **names)
 	t_names			*tmp1;
 	t_names			*tmp2;
 
+	if (!names)
+		return ;
 	tmp1 = *names;
-	while (tmp1)
+	while (tmp1 && tmp1->name)
 	{
 		tmp2 = tmp1;
 		free(tmp1->name);
@@ -57,6 +59,8 @@ void		ft_del_crdnts(t_crdnts **crdnts)
 	t_crdnts		*tmp2;
 
 	tmp1 = *crdnts;
+	if (!crdnts || !*crdnts)
+		return ;
 	while(tmp1)
 	{
 		tmp2 = tmp1;
