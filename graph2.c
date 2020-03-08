@@ -16,8 +16,8 @@ void	delete_graph(t_graph **graph)
     t_adjacent      *adj_tmp;
     t_adjacent      *adj_next;
 
-	ft_del_names((*graph)->names);
-	ft_del_crdnts((*graph)->crdnts);
+	ft_del_names(&((*graph)->names));
+	// ft_del_crdnts((*graph)->crdnts);
 	tmp = (*graph)->head;
     next = NULL;
     while (tmp)

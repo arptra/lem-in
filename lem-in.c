@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
 	t_vertice_node  *test;
     t_graph *graph;
 
-    fd = open(argv[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 
     graph = init_graph();
 	fill_graph(fd, graph);
