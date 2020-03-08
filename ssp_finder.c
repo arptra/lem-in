@@ -1,5 +1,18 @@
 #include "lem-in.h"
 
+void    reset_dijkstra(t_graph *graph)
+{
+    t_vertice_node *tmp;
+
+    tmp = graph->head;
+    while (tmp)
+    {
+        tmp->dist = INT32_MAX;
+        tmp->parent = NULL;
+        tmp = tmp->next;
+    }
+}
+
 void    relabele_vertices(t_vertice_node *start, t_queue *queue)
 {
     t_adjacent		    *niegh;
@@ -8,12 +21,12 @@ void    relabele_vertices(t_vertice_node *start, t_queue *queue)
     int			        new_dist;
 
     niegh = start->neigbors;
-    while (niegh != NULL && niegh->visit == 1)
+    while (niegh != NULL )
     {
         w = niegh->weight;
         dst = niegh->elem_in_main_list;
         new_dist = start->dist + w;
-        if (new_dist < dst->dist)
+        if (niegh->visit == 1 && new_dist < dst->dist)
         {
             dst->dist = new_dist;
             dst->parent = start;
@@ -23,7 +36,7 @@ void    relabele_vertices(t_vertice_node *start, t_queue *queue)
     }
 }
 
-void    ssp_finder(t_graph *graph, t_vertice_node *node)
+int    ssp_finder(t_graph *graph, t_vertice_node *node)
 {
     t_vertice_node  *start;
     t_vertice_node  *end;
@@ -36,9 +49,13 @@ void    ssp_finder(t_graph *graph, t_vertice_node *node)
     while (start != NULL && start != end)
     {
         relabele_vertices(start, queue);
-        start = eject_min(queue);
+        if(queue->size != 0)
+            start = eject_min(queue);
+        else
+            return(0);
     }
     delete_queue(&queue);
+    return (1);
 }
 
 void    print_ssp(t_graph *graph)

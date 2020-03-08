@@ -27,6 +27,7 @@ struct s_vertice_node
     int 			x;
     int 			y;
     int             dist;
+    int             dup;
     t_vertice_node  *from;
     t_vertice_node  *to;
     t_vertice_node  *parent;
@@ -67,6 +68,7 @@ t_vertice_node      *getnth(t_graph *graph, char *src, char *link, t_vertice_nod
 void                add_niegh_and_link (t_graph *graph, char *src, char *dst, int weight);
 int                 add_vertex_dup(t_graph *graph, t_vertice_node *node);
 t_vertice_node      *find_elem(t_graph *graph, char *name);
+void                reset_dijkstra(t_graph *graph);
 
 void                print_graph(t_graph *graph);
 void	            delete_graph(t_graph **graph);

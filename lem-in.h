@@ -14,7 +14,7 @@
 int		test();
 void	fill_graph(int fd, t_graph *graph);
 
-void    ssp_finder(t_graph *graph, t_vertice_node *node);
+int    ssp_finder(t_graph *graph, t_vertice_node *node);
 void    print_ssp(t_graph *graph);
 void    backward_path(t_graph *graph);
 
