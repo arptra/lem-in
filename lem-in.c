@@ -15,16 +15,25 @@ int	main(int argc, char **argv)
     ssp_finder(graph, graph->start);
 	graph->end->parent ? 1 : ft_error();
     backward_path(graph);
+    //print_ssp(graph);
+    print_paths(graph->start);
     /*
-    print_ssp(graph);
-
-
 	test = find_elem(graph, "11");
+	//devide vertex that pass on find path
 	vertex_dup(graph, test);
     print_graph(graph);
-     */
 
+    vertex_dup(graph, test->to);
+    print_graph(graph);
+
+    vertex_dup(graph, test->to->to);
+    print_graph(graph);
+    //
+    reset_dijkstra(graph);
+    ssp_finder(graph, graph->start);
+    backward_path(graph);
     print_paths(graph->start);
+     */
 	delete_graph(&graph);
 	return (0);
 }

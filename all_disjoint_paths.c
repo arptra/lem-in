@@ -38,6 +38,17 @@ void    add_niegh_dup(t_graph *graph, t_vertice_node *node)
     t_adjacent  *niegh;
 
     add_niegh_and_link(graph, graph->tail->name, node->name, 0);
+    niegh = node->neigbors;
+    while (niegh)
+    {
+        if (niegh->elem_in_main_list != node->from &&
+                niegh->elem_in_main_list != node->to
+                && niegh->elem_in_main_list->dup != 2)
+        {
+            add_niegh_and_link(graph, graph->tail->name, niegh->elem_in_main_list->name, 1);
+        }
+        niegh = niegh->next;
+    }
 
 }
 
@@ -47,21 +58,28 @@ void    vertex_dup(t_graph *graph, t_vertice_node *node)
     t_adjacent  *to;
     t_adjacent  *tmp;
 
+    node->dup = 1;
     from = find_self(node, node->from->neigbors);
     from->visit = 0;
-    from->weight = -1;
     to = find_self(node, node->to->neigbors);
     to->visit = 0;
     to->weight = -1;
     tmp = node->neigbors;
     while (tmp)
     {
-        if (node->from != tmp->elem_in_main_list)
+        if (node->from == tmp->elem_in_main_list && node->from->dup != 1)
+        {
             tmp->weight = -1;
-        tmp->visit = 0;
+            tmp->visit = 1;
+        }
+        else if ( tmp->elem_in_main_list->dup == 2)
+            tmp->visit = 1;
+        else
+            tmp->visit = 0;
         tmp = tmp->next;
     }
     add_vertex_dup(graph, node);
+    push_nieghbors(node->to, graph->tail->name, graph->tail, -1);
     add_niegh_dup(graph, node);
 }
 

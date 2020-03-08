@@ -52,6 +52,7 @@ int     add_vertex_dup(t_graph *graph, t_vertice_node *node)
     tmp->name = 0;
     tmp->x = 0;
     tmp->y = 0;
+    tmp->dup = 2;
     tmp->name = ft_strjoin("L", node->name);
     tmp->parent = NULL;
     tmp->from = NULL;
