@@ -142,3 +142,9 @@ void    print_room(t_graph *graph, int stop)
     }
     ft_putchar('\n');
 }
+
+void    exitfree(t_graph *graph, int i)
+{
+    delete_graph(&graph);
+    exit(i);
+}
