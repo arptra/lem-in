@@ -26,6 +26,7 @@ void	connect_parents(t_vertice_node *vertex);
 void    combine_paths(t_vertice_node *start, t_vertice_node *end);
 void    divide_vertex(t_graph *graph);
 t_path *merge_sort(t_path *head);
+void    exitfree(t_graph *graph, int i);
 
 void    moves(t_paths *paths);
 
