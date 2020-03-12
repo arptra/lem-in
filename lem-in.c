@@ -31,9 +31,9 @@ int	main(int argc, char **argv)
     paths = init_paths();
     add_paths(graph, paths);
     paths->head = merge_sort(paths->head);
+    paths->ants = 10;
     moves(paths);
     delete_paths(&paths);
-
 
     print_paths(graph->start);
 	delete_graph(&graph);

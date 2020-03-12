@@ -25,7 +25,7 @@ void    moves(t_paths *paths)
     ants = paths->ants;
     while (ants)
     {
-        while (tmp)
+        while (ants && tmp)
         {
             if (ants > series(tmp))
                 tmp->moves++;
