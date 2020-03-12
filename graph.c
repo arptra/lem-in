@@ -14,7 +14,7 @@ t_graph         *init_graph()
     return (tmp);
 }
 
-t_adjacent      *add_nieghbors()
+t_adjacent      *add_nieghbors(t_vertice_node *node)
 {
     t_adjacent *tmp;
 
@@ -24,8 +24,16 @@ t_adjacent      *add_nieghbors()
     tmp->weight = 0;
     tmp->visit = 0;
     tmp->next = NULL;
+    tmp->prev = NULL;
     tmp->name = NULL;
     tmp->elem_in_main_list = NULL;
+    tmp->next = NULL;
+    tmp->prev = node->neighbors_tail;
+    if (node->neighbors_tail)
+        node->neighbors_tail->next = tmp;
+    node->neighbors_tail = tmp;
+    if (node->neighbors_head == NULL)
+        node->neighbors_head = tmp;
     return (tmp);
 }
 
@@ -36,15 +44,16 @@ int             add_vertex_node(t_graph *graph, t_room *room)
     tmp = (t_vertice_node *)malloc(sizeof(t_vertice_node));
     if (tmp == NULL)
         return (0);
-    tmp->neigbors = add_nieghbors();
-    if (tmp->neigbors == NULL)
+    tmp->neighbors_head = NULL;
+    tmp->neighbors_tail = NULL;
+    tmp->neighbors_head = add_nieghbors(tmp);
+    if (tmp->neighbors_head == NULL)
         return (0);
     tmp->dist = INT32_MAX;
     tmp->name = room->name;
     tmp->x = room->x;
     tmp->y = room->y;
     tmp->dup = 0;
-    tmp->name = room->name;
     tmp->parent = NULL;
     tmp->from = NULL;
     tmp->to = NULL;
@@ -63,29 +72,25 @@ int             add_vertex_node(t_graph *graph, t_room *room)
     return (1);
 }
 
-void            push_nieghbors(t_vertice_node *vertice, char *name, t_vertice_node *ref, int weight)
+void            push_nieghbors(t_vertice_node *vertex, char *name, t_vertice_node *ref, int weight)
 {
     t_adjacent *cur;
 
-    cur = vertice->neigbors;
+    cur = vertex->neighbors_head;
     if (cur->name == NULL)
     {
-        cur->name = name;
+        cur->name = ft_strdup(name);
         cur->weight = weight;
         cur->visit = 1;
         cur->elem_in_main_list = ref;
-        cur->next = NULL;
     }
     else
     {
-        while (cur->next != NULL)
-            cur = cur->next;
-        cur->next = (t_adjacent *) malloc(sizeof(t_adjacent));
-        cur->next->name = name;
-        cur->next->weight = weight;
-        cur->next->visit = 1;
-        cur->next->elem_in_main_list = ref;
-        cur->next->next = NULL;
+        cur = add_nieghbors(vertex);
+        cur->name = ft_strdup(name);
+        cur->weight = weight;
+        cur->visit = 1;
+        cur->elem_in_main_list = ref;
     }
 }
 

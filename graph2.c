@@ -21,14 +21,16 @@ void	delete_graph(t_graph **graph)
     while (tmp)
     {
         next = tmp->next;
-        adj_tmp = tmp->neigbors;
+        adj_tmp = tmp->neighbors_head;
         adj_next = NULL;
         while (adj_tmp)
         {
             adj_next = adj_tmp->next;
+            free(adj_tmp->name);
             free(adj_tmp);
             adj_tmp = adj_next;
         }
+        free(tmp->name);
         free(tmp);
         tmp = next;
     }
@@ -43,8 +45,10 @@ int     add_vertex_dup(t_graph *graph, t_vertice_node *node)
     tmp = (t_vertice_node *)malloc(sizeof(t_vertice_node));
     if (tmp == NULL)
         return (0);
-    tmp->neigbors = add_nieghbors();
-    if (tmp->neigbors == NULL)
+    tmp->neighbors_head = NULL;
+    tmp->neighbors_tail = NULL;
+    tmp->neighbors_head = add_nieghbors(tmp);
+    if (tmp->neighbors_head == NULL)
         return (0);
     tmp->dist = INT32_MAX;
     tmp->name = 0;
@@ -87,7 +91,7 @@ void    print_graph(t_graph *graph)
     {
         ft_putstr(tmp->name);
         ft_putstr(" -> [ ");
-        niegh = tmp->neigbors;
+        niegh = tmp->neighbors_head;
         while (niegh)
         {
             ft_putstr("(");

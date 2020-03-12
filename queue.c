@@ -66,7 +66,7 @@ t_vertice_node		*popfront(t_queue *queue)
     return (tmp);
 }
 
-void	            pushback(t_queue *stack, t_vertice_node *data)
+void	            pushback(t_queue *queue, t_vertice_node *data)
 {
     t_node *tmp;
 
@@ -75,13 +75,13 @@ void	            pushback(t_queue *stack, t_vertice_node *data)
         exit(3);
     tmp->data = data;
     tmp->next = NULL;
-    tmp->prev = stack->tail;
-    if (stack->tail)
-        stack->tail->next = tmp;
-    stack->tail = tmp;
-    if (stack->head == NULL)
-        stack->head = tmp;
-    stack->size++;
+    tmp->prev = queue->tail;
+    if (queue->tail)
+        queue->tail->next = tmp;
+    queue->tail = tmp;
+    if (queue->head == NULL)
+        queue->head = tmp;
+    queue->size++;
 }
 
 t_vertice_node		*popback(t_queue *queue)

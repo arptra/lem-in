@@ -5,7 +5,8 @@ C_FLAGS =  -Wall -Wextra
 LIBFT_DIR := libft/
 NAME:= lem-in
 LEM_IN:= input.c error_management.c graph.c lem-in.c\
-            tests.c graph2.c ssp_finder.c queue.c all_disjoint_paths.c
+            tests.c graph2.c ssp_finder.c queue.c all_disjoint_paths.c\
+ 	    graph3.c paths.c mergesort.c ants.c
 
 OBJECTS_LEM_IN := $(LEM_IN:.c=.o)
 #HEADER = libft/libft.h

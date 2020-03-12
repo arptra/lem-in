@@ -37,15 +37,17 @@ void    add_niegh_dup(t_graph *graph, t_vertice_node *node)
 {
     t_adjacent  *niegh;
 
-    add_niegh_and_link(graph, graph->tail->name, node->name, 0);
-    niegh = node->neigbors;
+    //add_niegh_and_link(graph, graph->tail->name, node->name, 0);
+    push_nieghbors(graph->tail, node->name, node, 0);
+    niegh = node->neighbors_head;
     while (niegh)
     {
         if (niegh->elem_in_main_list != node->from &&
                 niegh->elem_in_main_list != node->to
                 && niegh->elem_in_main_list->dup != 2)
         {
-            add_niegh_and_link(graph, graph->tail->name, niegh->elem_in_main_list->name, 1);
+            //add_niegh_and_link(graph, graph->tail->name, niegh->elem_in_main_list->name, 1);
+            push_nieghbors(graph->tail, niegh->elem_in_main_list->name, niegh->elem_in_main_list, 1);
         }
         niegh = niegh->next;
     }
@@ -59,12 +61,12 @@ void    vertex_dup(t_graph *graph, t_vertice_node *node)
     t_adjacent  *tmp;
 
     node->dup = 1;
-    from = find_self(node, node->from->neigbors);
+    from = find_self(node, node->from->neighbors_head);
     from->visit = 0;
-    to = find_self(node, node->to->neigbors);
+    to = find_self(node, node->to->neighbors_head);
     to->visit = 0;
     to->weight = -1;
-    tmp = node->neigbors;
+    tmp = node->neighbors_head;
     while (tmp)
     {
         if (node->from == tmp->elem_in_main_list && node->from->dup != 1)
@@ -90,7 +92,7 @@ void    print_paths(t_vertice_node *from)
     int         i;
 
     i = 0;
-    niegh = from->neigbors;
+    niegh = from->neighbors_head;
     while (niegh)
     {
         tmp = niegh->elem_in_main_list;
@@ -110,4 +112,67 @@ void    print_paths(t_vertice_node *from)
         niegh = niegh->next;
     }
     ft_putchar('\n');
+}
+
+void	connect_parents(t_vertice_node *vertex)
+{
+    t_vertice_node		*p;
+    t_vertice_node		*r;
+
+    while ((p = vertex->parent) != NULL)
+    {
+        if (p->neighbors_head->weight == 0)
+        {
+            r = p->neighbors_head->elem_in_main_list;
+            if (r != vertex)
+                vertex->parent = r;
+            r->parent = p->parent;
+        }
+        vertex = vertex->parent;
+    }
+}
+
+void	combine_paths(t_vertice_node *start, t_vertice_node *end)
+{
+    t_vertice_node		*a;
+    t_vertice_node		*b;
+
+    b = end;
+    while ((a = b->parent) != NULL)
+    {
+        if (a->from != b && b->to != a)
+        {
+            if (a != start)
+                a->to = b;
+            if (b != end)
+                b->from = a;
+        }
+        else
+        {
+            if (a->from == b)
+                a->from = NULL;
+            if (b->to == a)
+                b->to = NULL;
+        }
+        b = a;
+    }
+}
+
+void    divide_vertex(t_graph *graph)
+{
+    t_vertice_node *tmp;
+    t_adjacent *cur_vertex;
+
+    cur_vertex = graph->start->neighbors_head;
+    while (cur_vertex)
+    {
+        tmp = cur_vertex->elem_in_main_list;
+        while (tmp->to && tmp != graph->end)
+        {
+            vertex_dup(graph,tmp);
+            tmp = tmp->to;
+        }
+        cur_vertex = cur_vertex->next;
+    }
+
 }

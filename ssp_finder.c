@@ -20,7 +20,7 @@ void    relabele_vertices(t_vertice_node *start, t_queue *queue)
     t_vertice_node		*dst;
     int			        new_dist;
 
-    niegh = start->neigbors;
+    niegh = start->neighbors_head;
     while (niegh != NULL )
     {
         w = niegh->weight;
@@ -52,7 +52,10 @@ int    ssp_finder(t_graph *graph, t_vertice_node *node)
         if(queue->size != 0)
             start = eject_min(queue);
         else
-            return(0);
+        {
+            delete_queue(&queue);
+            return (0);
+        }
     }
     delete_queue(&queue);
     return (1);

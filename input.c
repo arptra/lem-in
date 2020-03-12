@@ -1,5 +1,14 @@
 #include "lem-in.h"
 
+void   buf_clr(char buf[], int size)
+{
+    int i;
+
+    i = -1;
+    while (++i < size)
+        buf[i] = 0;
+}
+
 static int 	get_coord(const char *line, int *numb)
 {
 	int i;
@@ -10,7 +19,7 @@ static int 	get_coord(const char *line, int *numb)
 	j = 0;
 	while (line[i] && line[i] == ' ')
 		i++;
-	ft_strclr(buf);
+    buf_clr(buf, FILL_BUFF);
 	while (line[i] != '\0' && line[i] != ' ')
 		buf[j++] = line[i++];
 	buf[i] = '\0';
@@ -36,7 +45,7 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	char    *dst;
 	
 	i = -1;
-	ft_strclr(buf);
+	buf_clr(buf, FILL_BUFF);
 	while (line[++i] != '\0' && line[i] != ' ' && line[i] != '-')
 		buf[i] = line[i];
 	buf[i] = '\0';
@@ -52,13 +61,15 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
     {
 	    j = 0;
 	    src = ft_strdup(buf);
-	    ft_strclr(buf);
+        buf_clr(buf, FILL_BUFF);
 	    while (line[++i] != '\0')
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
         // Intercept SRC and DST and check if value ok, else raise ERROR
         add_niegh_and_link(graph, src, dst, 1); // add new link between SRC and DST
         add_niegh_and_link(graph, dst, src, 1); // and vice verse
+        free(src);
+        free(dst);
     }
 }
 
@@ -66,7 +77,9 @@ void	    fill_graph(int fd, t_graph *graph)
 {
 	char	*line;
 	t_room	*input;
+	int      i;
 
+	i = 0;
 	input = (t_room *)malloc(sizeof(t_room));
 	reset_input(input);
 	while(get_next_line(fd, &line))
@@ -78,12 +91,15 @@ void	    fill_graph(int fd, t_graph *graph)
 			input->end = 1;
 		else if (line[0] == '#')
 			;
+		else if (i == 0)
+            graph->ants = ft_atoi(line);
 		else
 		{
 			parse_line(line, input, graph);
 			reset_input(input);
 		}
 		free(line);
+		i++;
 	}
 	free(input);
 }

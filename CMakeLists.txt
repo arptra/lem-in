@@ -13,7 +13,7 @@ add_executable(lem-in
         ssp_finder.c
         queue.c
         queue.h
-        all_disjoint_paths.c)
+        all_disjoint_paths.c graph3.c paths.c path.h mergesort.c ants.c)
 
 add_subdirectory(libft)
 
