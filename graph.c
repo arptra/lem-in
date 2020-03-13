@@ -54,6 +54,8 @@ int             add_vertex_node(t_graph *graph, t_room *room)
     tmp->x = room->x;
     tmp->y = room->y;
     tmp->dup = 0;
+    tmp->ant_num = 0;
+    tmp->end_ready = 0;
     tmp->parent = NULL;
     tmp->from = NULL;
     tmp->to = NULL;

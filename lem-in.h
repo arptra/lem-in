@@ -29,7 +29,7 @@ t_path *merge_sort(t_path *head);
 void    exitfree(t_graph *graph, int i);
 
 void    moves(t_paths *paths);
-
+void    output(t_paths *paths, t_graph *graph);
 
 void    print_paths(t_vertice_node *from);
 void    print_room(t_graph *graph, int stop);

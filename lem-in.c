@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
     t_graph *graph;
     t_paths *paths;
     int     i;
-
+    int     prev_moves;
 
     fd = open(argv[1], O_RDONLY);
 
@@ -16,26 +16,32 @@ int	main(int argc, char **argv)
     ssp_finder(graph, graph->start);
     connect_parents(graph->end);
 
-    i = 3;
-    while (1)
+    i = 11;
+    prev_moves = INT32_MAX;
+    paths = init_paths();
+    while (i--)
     {
         reset_dijkstra(graph);
         divide_vertex(graph);
         if (ssp_finder(graph, graph->start) == 0)
             break;
+        print_ssp(graph);
         connect_parents(graph->end);
-        combine_paths(graph->start, graph->end);
         stick_toghether(graph);
+        combine_paths(graph->start, graph->end);
+        if (cur_moves(graph) < prev_moves)
+        {
+            delete_paths(&paths);
+            paths = init_paths();
+            add_paths(graph, paths);
+            paths->head = merge_sort(paths->head);
+            prev_moves = (paths->ants + paths->paths_len - 1) / paths->amt_paths;
+            paths->num_moves = prev_moves;
+        }
     }
-
-    paths = init_paths();
-    add_paths(graph, paths);
-    paths->head = merge_sort(paths->head);
-    paths->ants = 10;
-    moves(paths);
+    output(paths, graph);
+    //print_paths(graph->start);
     delete_paths(&paths);
-
-    print_paths(graph->start);
 	delete_graph(&graph);
 	return (0);
 }
