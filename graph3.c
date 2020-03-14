@@ -53,7 +53,7 @@ void    stick_toghether(t_graph *graph)
         {
             neigh->visit = 1;
             neigh->weight = 1;
-            if (neigh->name[0] == 'L')
+            if (neigh->name && neigh->name[0] == 'L')
             {
                 popneigh(tmp);
                 neigh = tmp->neighbors_tail;
