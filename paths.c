@@ -69,6 +69,18 @@ void    addback(t_paths *paths, t_vertice_node *data)
     paths->paths_len += tmp->length;
 }
 
+void    save_path(t_vertice_node *node)
+{
+    t_vertice_node *tmp;
+
+    tmp = node;
+    while (tmp)
+    {
+        tmp->save = tmp->to;
+        tmp = tmp->to;
+    }
+}
+
 void    add_paths(t_graph *graph, t_paths *paths)
 {
     t_adjacent      *tmp;
@@ -78,7 +90,10 @@ void    add_paths(t_graph *graph, t_paths *paths)
     while (tmp)
     {
         if (tmp->elem_in_main_list->from)
+        {
+            save_path(tmp->elem_in_main_list);
             addback(paths, tmp->elem_in_main_list);
+        }
         tmp = tmp->next;
     }
 }

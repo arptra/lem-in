@@ -29,10 +29,9 @@ struct s_vertice_node
     int 			y;
     int             dist;
     int             dup;
-    int             ant_num;
-    int             end_ready;
     t_vertice_node  *from;
     t_vertice_node  *to;
+    t_vertice_node  *save;
     t_vertice_node  *parent;
     t_adjacent      *neighbors_head;
     t_adjacent      *neighbors_tail;

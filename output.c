@@ -18,7 +18,7 @@ int     put_ant(t_paths *paths, t_ants *ants, int i)
     while (ant)
     {
         if (ant->node)
-            ant->node = ant->node->to;
+            ant->node = ant->node->save;
         ant = ant->next;
     }
     while (tmp && tmp->moves > 0)

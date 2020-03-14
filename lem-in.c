@@ -16,16 +16,15 @@ int	main(int argc, char **argv)
     ssp_finder(graph, graph->start);
     connect_parents(graph->end);
 
-    i = 11;
+    i = 10;
     prev_moves = INT32_MAX;
     paths = init_paths();
-    while (i--)
+    while (1)
     {
         reset_dijkstra(graph);
         divide_vertex(graph);
         if (ssp_finder(graph, graph->start) == 0)
             break;
-        print_ssp(graph);
         connect_parents(graph->end);
         stick_toghether(graph);
         combine_paths(graph->start, graph->end);
