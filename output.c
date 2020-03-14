@@ -61,7 +61,7 @@ void    output(t_paths *paths, t_graph *graph)
     j = 85;
     ants = init_ants();
     moves(paths);
-    while (j--)
+    while (paths->num_moves--)
     {
         i = put_ant(paths, ants, i);
         print_line(ants);
