@@ -84,7 +84,7 @@ void	    fill_graph(int fd, t_graph *graph)
 	reset_input(input);
 	while(get_next_line(fd, &line))
 	{
-		//ft_putendl(line);
+		ft_putendl(line);
 		if (!ft_strcmp("##start", line))
 			input->start = 1;
 		else if (!ft_strcmp("##end", line))
