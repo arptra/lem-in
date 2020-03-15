@@ -34,6 +34,7 @@ static	t_list	*getfd(t_list **list, int fd)
 	t_list	*cur;
 
 	cur = *list;
+	fd = fd + 1;
 	while (cur != NULL)
 	{
 		if ((int)cur->content_size == fd)
@@ -97,7 +98,11 @@ int				get_next_line(const int fd, char **line)
 				|| (i == 0 && ft_strlen(cur->content) != 0))
 			flag = get_line(&cur, &line);
 		else if (ft_strlen(cur->content) == 0)
-			return (0);
+		{
+            free(list->content);
+            free(list);
+            return (0);
+        }
 	}
 	return (flag);
 }

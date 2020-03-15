@@ -12,7 +12,6 @@
 
 #define FILL_BUFF 100
 
-int		test();
 void	fill_graph(int fd, t_graph *graph);
 
 int    ssp_finder(t_graph *graph, t_vertice_node *node);

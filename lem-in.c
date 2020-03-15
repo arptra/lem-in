@@ -5,11 +5,13 @@ int	main(int argc, char **argv)
 	int     fd;
     t_graph *graph;
     t_paths *paths;
-    int     i;
     int     prev_moves;
 
 
-    fd = open(argv[1], O_RDONLY);
+    if (argc > 1)
+        fd = open(argv[1], O_RDONLY);
+    else
+        fd = 0;
 
     graph = init_graph();
 	fill_graph(fd, graph);
@@ -17,7 +19,6 @@ int	main(int argc, char **argv)
     ssp_finder(graph, graph->start);
     connect_parents(graph->end);
 
-    i = 10;
     prev_moves = INT32_MAX;
     paths = init_paths();
     while (1)
