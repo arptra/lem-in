@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
     vertex_dup(graph, test->to);
     print_graph(graph);
 	*/
-    i = 10;
+    // i = 10;
     prev_moves = INT32_MAX;
     paths = init_paths();
     while (1)
