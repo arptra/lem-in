@@ -69,7 +69,10 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
 		(!ft_chk_name(dst, graph) || !ft_chk_name(src, graph)) ? ft_error() : 1;
+<<<<<<< HEAD
 		// (ft_chk_name(dst, graph) && ft_chk_name(src, graph)) ? 1 : ft_error();
+=======
+>>>>>>> 1b71d7edd4df3d2d4de30c05ca0a649300f6f185
         add_niegh_and_link(graph, src, dst, 1); // add new link between SRC and DST
         add_niegh_and_link(graph, dst, src, 1); // and vice verse
         free(src);
