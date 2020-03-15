@@ -27,6 +27,11 @@ void    divide_vertex(t_graph *graph);
 t_path *merge_sort(t_path *head);
 void    exitfree(t_graph *graph, int i);
 
+void	ft_error(t_graph *graph);
+int     int_checker(char *str, int *flag);
+int     digit_checker(char *str);
+int     chck_ant(char *str, t_graph *graph);
+
 void    moves(t_paths *paths);
 void    output(t_paths *paths, t_graph *graph);
 

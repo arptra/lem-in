@@ -9,10 +9,11 @@ void   buf_clr(char buf[], int size)
         buf[i] = 0;
 }
 
-static int 	get_coord(const char *line, int *numb)
+static int 	get_coord(const char *line, int *numb, t_graph *graph)
 {
 	int i;
 	int j;
+    int flag;
 	char buf[FILL_BUFF];
 	
 	i = 0;
@@ -23,7 +24,9 @@ static int 	get_coord(const char *line, int *numb)
 	while (line[i] != '\0' && line[i] != ' ')
 		buf[j++] = line[i++];
 	buf[i] = '\0';
-	*numb = ft_atoi(buf);
+    *numb = int_checker(buf, &flag);
+    if (flag || digit_checker(buf) < 0)
+        ft_error(graph);
 	return (i);
 }
 
@@ -51,23 +54,37 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
 	buf[i] = '\0';
 	if (line[i] == ' ')
 	{
+	    if (buf[0] == 'L')
+	        ft_error(graph);
         input->name = ft_strdup(buf);
-        i = i + get_coord(&line[i], &input->x);
-        i = i + get_coord(&line[i], &input->y);
+        i = i + get_coord(&line[i], &input->x, graph);
+        i = i + get_coord(&line[i], &input->y, graph);
         //  Intercept INPUT and check if value ok, else raise ERROR
+        while (line[i] && line[i] == ' ')
+            i++;
+        if (line[i] != '\0')
+            ft_error(graph);
+        if (find_elem(graph, input->name) != NULL)
+            ft_error(graph);
         add_vertex_node(graph, input); // add new vertex in graph
     }
 	else if (line[i] == '-')
     {
 	    j = 0;
 	    src = ft_strdup(buf);
+        if (buf[0] == 'L')
+            ft_error(graph);
         buf_clr(buf, FILL_BUFF);
 	    while (line[++i] != '\0')
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
+        if (buf[0] == 'L')
+            ft_error(graph);
         // Intercept SRC and DST and check if value ok, else raise ERROR
-        add_niegh_and_link(graph, src, dst, 1); // add new link between SRC and DST
-        add_niegh_and_link(graph, dst, src, 1); // and vice verse
+        if (add_niegh_and_link(graph, src, dst, 1) == 0)
+            ft_error(graph); // add new link between SRC and DST
+        if (add_niegh_and_link(graph, dst, src, 1) == 0)
+            ft_error(graph);// and vice verse
         free(src);
         free(dst);
     }
@@ -84,15 +101,22 @@ void	    fill_graph(int fd, t_graph *graph)
 	reset_input(input);
 	while(get_next_line(fd, &line))
 	{
-		ft_putendl(line);
-		if (!ft_strcmp("##start", line))
+		//ft_putendl(line);
+		if (!ft_strcmp("##start", line) && graph->start == NULL)
 			input->start = 1;
-		else if (!ft_strcmp("##end", line))
+		else if (!ft_strcmp("##start", line) && graph->start != NULL)
+            ft_error(graph);
+		else if (!ft_strcmp("##end", line) && graph->end == NULL)
 			input->end = 1;
+		else if (!ft_strcmp("##end", line) && graph->end != NULL)
+            ft_error(graph);
 		else if (line[0] == '#')
-			;
+		{
+            if (input->end == 1 || input->start == 1)
+                ft_error(graph);
+        }
 		else if (i == 0)
-            graph->ants = ft_atoi(line);
+            graph->ants = chck_ant(line, graph);
 		else
 		{
 			parse_line(line, input, graph);

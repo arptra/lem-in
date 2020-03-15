@@ -1,12 +1,15 @@
 #include "lem-in.h"
 
-void    add_niegh_and_link (t_graph *graph, char *src, char *dst, int weight)
+int     add_niegh_and_link (t_graph *graph, char *src, char *dst, int weight)
 {
     t_vertice_node  *from;
     t_vertice_node  *link;
 
     from = getnth(graph, src, dst, &link);
+    if (from == NULL)
+        return (0);
     push_nieghbors(from, dst, link, weight);
+    return (1);
 }
 
 void	delete_graph(t_graph **graph)

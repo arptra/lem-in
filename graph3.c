@@ -40,7 +40,7 @@ void		popvertex(t_graph *graph)
     free(next);
 }
 
-void    stick_toghether(t_graph *graph)
+void        stick_toghether(t_graph *graph)
 {
     t_vertice_node  *tmp;
     t_adjacent      *neigh;

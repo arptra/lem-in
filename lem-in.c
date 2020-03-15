@@ -7,7 +7,6 @@ int	main(int argc, char **argv)
     t_paths *paths;
     int     prev_moves;
 
-
     if (argc > 1)
         fd = open(argv[1], O_RDONLY);
     else
@@ -15,8 +14,10 @@ int	main(int argc, char **argv)
 
     graph = init_graph();
 	fill_graph(fd, graph);
-
-    ssp_finder(graph, graph->start);
+    if (graph->start == NULL && graph->end == NULL)
+        ft_error(graph);
+    if (ssp_finder(graph, graph->start) == 0)
+        ft_error(graph);
     connect_parents(graph->end);
 
     prev_moves = INT32_MAX;
@@ -41,7 +42,6 @@ int	main(int argc, char **argv)
         }
     }
     output(paths, graph);
-    //print_paths(graph->start);
     delete_paths(&paths);
 	delete_graph(&graph);
 	return (0);
