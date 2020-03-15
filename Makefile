@@ -14,7 +14,7 @@ OBJECTS_LEM_IN := $(LEM_IN:.c=.o)
 all: $(NAME)
 $(NAME): $(OBJECTS_LEM_IN)
 	make -C $(LIBFT_DIR)
-	gcc -o $(NAME) $(OBJECTS_LEM_IN) -L$(LIBFT_DIR) -lft
+	gcc -g -o $(NAME) $(OBJECTS_LEM_IN) -L$(LIBFT_DIR) -lft
 $(OBJECTS_LEM_IN): %.o: %.c
 	gcc $(C_FLAGS) -o $@ -c $<
 
