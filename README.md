@@ -11,7 +11,7 @@ using [pyside2](https://pypi.org/project/PySide2/) - Qt framework port for pytho
 
 # installing dependencies
 ```
-$ pip install pyside2
+$ pip3 install pyside2
 ```
 
 # running visualization
