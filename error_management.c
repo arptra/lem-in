@@ -73,6 +73,7 @@ int			ft_chk_name(const char *name, t_graph *graph)
 		if (!ft_strcmp(name, tmp1->name))
 			return (1);
 		tmp1 = tmp1->next;
+	}
 	// while (graph->names)
 	// {
 	// 	if (!ft_strcmp(name, graph->names->name))
