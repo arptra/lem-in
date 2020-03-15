@@ -43,6 +43,23 @@ int			ft_chck_nm_w_crdnts(t_room *input, t_graph *graph)
 		graph->names = ft_nw_name(input->name);
 		graph->crdnts = ft_nw_crdnts(input->x, input->y);		
 	}
+	// while (graph->names->next && graph->crdnts->next)
+	// {
+	// 	if (!ft_strcmp(input->name, graph->names->name) || (
+	// 		input->x == graph->crdnts->x &&
+	// 		input->y == graph->crdnts->y))
+	// 		return (1);
+	// 	graph->names = graph->names->next;
+	// 	graph->crdnts = graph->crdnts->next;
+	// }
+	// if (graph->names->next || graph->crdnts->next)
+	// 	return (1);
+	// if (!ft_strcmp(input->name, graph->names->name) || (
+	// 	input->x == graph->crdnts->x &&
+	// 	input->y == graph->crdnts->y))
+	// 	return (1);
+	// graph->names->next = ft_nw_name(input->name);
+	// graph->crdnts->next = ft_nw_crdnts(input->x, input->y);
 	return (0);
 }
 

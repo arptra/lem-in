@@ -94,6 +94,16 @@ void	    fill_graph(int fd, t_graph *graph)
 		if (!ft_strcmp("##start", line))
 			(!graph->start && !input->end) ? (input->start = 1) : ft_error();
 		else if (!ft_strcmp("##end", line))
+		{
+			(!graph->end && !input->start) ? (input->end = 1) : ft_error();
+			graph->start ? (input->start = 1) : ft_error();
+		}
+		else if (!ft_strcmp("##end", line))
+		{
+			graph->end ? (input->end = 1) : ft_error();
+			(!graph->start && !input->end) ? (input->start = 1) : ft_error();
+		}
+		else if (!ft_strcmp("##end", line))
 			(!graph->end && !input->start) ? (input->end = 1) : ft_error();
 		else if (line[0] == '#')
 			;

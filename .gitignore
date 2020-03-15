@@ -4,7 +4,8 @@
 .vscode*
 *.json
 .ipynb_checkpoints*
-*.dSYM*
+*.dSYM
+# *.dSYM*
 *.gch
 
 ## Ignore Visual Studio temporary files, build results, and
