@@ -111,10 +111,7 @@ void	    fill_graph(int fd, t_graph *graph)
 		else if (!ft_strcmp("##end", line) && graph->end != NULL)
             ft_error(graph);
 		else if (line[0] == '#')
-		{
-            if (input->end == 1 || input->start == 1)
-                ft_error(graph);
-        }
+            ;
 		else if (i == 0)
             graph->ants = chck_ant(line, graph);
 		else
