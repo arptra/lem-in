@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
             paths->num_moves = prev_moves;
         }
     }
-    output(paths, graph, head);
+    output(paths, head);
     delete_data(&data);
     delete_paths(&paths);
 	delete_graph(&graph);

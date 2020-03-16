@@ -51,11 +51,10 @@ void    print_line(t_ants *ants)
     }
 }
 
-void    output(t_paths *paths, t_graph *graph, t_data *head)
+void    output(t_paths *paths, t_data *head)
 {
     t_ants  *ants;
     int     i;
-    int     j;
 
     i = 1;
     print_data(head);

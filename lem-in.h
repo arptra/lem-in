@@ -37,7 +37,7 @@ int     digit_checker(char *str);
 int     chck_ant(char *str, t_graph *graph);
 
 void    moves(t_paths *paths);
-void    output(t_paths *paths, t_graph *graph, t_data *head);
+void    output(t_paths *paths, t_data *head);
 
 void    print_paths(t_vertice_node *from);
 void    print_room(t_graph *graph, int stop);
