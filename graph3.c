@@ -4,7 +4,6 @@
 void		popneigh(t_vertice_node *vertex)
 {
     t_adjacent	*next;
-    t_adjacent	*tmp;
     t_adjacent  *neigh;
 
     neigh = vertex->neighbors_tail;
@@ -24,7 +23,6 @@ void		popvertex(t_graph *graph)
 {
     t_vertice_node	*next;
     t_vertice_node	*tmp;
-    t_adjacent  *neigh;
 
     tmp = graph->tail;
     if (tmp == NULL)

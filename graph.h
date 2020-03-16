@@ -51,6 +51,13 @@ typedef struct		s_graph
 /*
  *  struct for parse map's file
  */
+
+typedef struct      s_data
+{
+    char            *str;
+    struct s_data   *next;
+}                   t_data;
+
 typedef struct 		s_room
 {
     int 			x;

@@ -90,7 +90,7 @@ static void	parse_line(char *line, t_room *input, t_graph *graph)
     }
 }
 
-void	    fill_graph(int fd, t_graph *graph)
+void	    fill_graph(int fd, t_graph *graph, t_data  *data)
 {
 	char	*line;
 	t_room	*input;
@@ -101,7 +101,6 @@ void	    fill_graph(int fd, t_graph *graph)
 	reset_input(input);
 	while(get_next_line(fd, &line))
 	{
-		//ft_putendl(line);
 		if (!ft_strcmp("##start", line) && graph->start == NULL)
 			input->start = 1;
 		else if (!ft_strcmp("##start", line) && graph->start != NULL)
@@ -119,6 +118,7 @@ void	    fill_graph(int fd, t_graph *graph)
 			parse_line(line, input, graph);
 			reset_input(input);
 		}
+		data = add_data(data, line);
 		free(line);
 		i++;
 	}

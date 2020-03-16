@@ -5,6 +5,8 @@ int	main(int argc, char **argv)
 	int     fd;
     t_graph *graph;
     t_paths *paths;
+    t_data  *data;
+    t_data  *head;
     int     prev_moves;
 
     if (argc > 1)
@@ -13,7 +15,9 @@ int	main(int argc, char **argv)
         fd = 0;
 
     graph = init_graph();
-	fill_graph(fd, graph);
+    data = init_data();
+    head = data;
+	fill_graph(fd, graph, data);
     if (graph->start == NULL && graph->end == NULL)
         ft_error(graph);
     if (ssp_finder(graph, graph->start) == 0)
@@ -41,7 +45,8 @@ int	main(int argc, char **argv)
             paths->num_moves = prev_moves;
         }
     }
-    output(paths, graph);
+    output(paths, graph, head);
+    delete_data(&data);
     delete_paths(&paths);
 	delete_graph(&graph);
 	return (0);

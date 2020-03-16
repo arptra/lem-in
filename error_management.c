@@ -49,8 +49,3 @@ int     chck_ant(char *str, t_graph *graph)
         ft_error(graph);
     return (value);
 }
-
-int     name_checker(char *str)
-{
-
-}
