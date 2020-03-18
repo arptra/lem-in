@@ -2,14 +2,11 @@
 
 void	ft_error(t_room *input)
 {
-    delete_graph(&input->graph);
+    ft_putstr_fd("ERROR",(int)STDERR_FILENO);
     delete_data(&input->data);
-    if (input->name)
-        free(input->name);
+    delete_graph(&input->graph);
     free(input);
-    //ft_putstr_fd("ERROR",(int)STDERR_FILENO);
-    ft_putstr("ERROR\n"); //for script test;
-    exit (-1);
+    exit(-1);
 }
 
 int     int_checker(char *str, int *flag)
@@ -50,7 +47,6 @@ int     chck_ant(t_room *input)
 
     value = int_checker(input->line, &flag);
     if (flag || digit_checker(input->line) < 0 || value < 0)
-        //ft_error(input);
         return (-1);
     return (value);
 }

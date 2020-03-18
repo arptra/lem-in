@@ -1,6 +1,6 @@
 #!/bin/bash
 dir="maps/validation_errs/*"
-i=0;
+i=1;
 for file in $dir
 do
 err=$(./lem-in 2>&1 < $file)
@@ -15,23 +15,41 @@ done
 
 cd 42_lem-in_tools
 bash check_invalid_map.sh ./lem-in
+cd ../
 
-i=0
-if [ "$1" = $"-leak" ]
+dir="maps/validation_errs/*"
+i=1
+if [ "$1" = $"--leak-invalid" ]
 then
 echo -en "\t\033[32m \033[32m LOOK FOR LEAK \033[32m \033[32m  \033[0m\n"
 for file in $dir
 do
-err=$(valgrind --leak-check=full --show-leak-kinds=all ./lem-in < $file)
-echo -en "\t\033[32m \033[32m TEST NUMBER $i \033[32m \033[32m  \033[0m\n"
-echo $err
+echo -en "\t\033[32m \033[32m TEST NUMBER $i $file \033[32m \033[32m  \033[0m\n"
+valgrind 2>&1 --leak-check=full --show-leak-kinds=all ./lem-in < $file | grep "LEAK SUMMARY:" -A5 | awk -F":" '{print $1 $2}'
 i=$((i+1))
 done
 fi
 
-# to test for right path
-#
-#for file in $dir; do echo $file;  bash checker.sh lem-in $file; done
-#
-#run in dir 42_lem-in_tools
-#
+cp lem-in 42_lem-in_tools
+cd 42_lem-in_tools
+dir="../valid_tests/*"
+i=1
+for file in $dir
+do
+echo -en "\t\033[32m \033[32m test #:$i  $file\033[32m \033[32m  \033[0m\n"
+bash checker.sh lem-in $file
+i=$((i+1))
+done
+
+i=1
+if [ "$2" = $"--leak-valid" ]
+then
+echo -en "\t\033[32m \033[32m LOOK FOR LEAK \033[32m \033[32m  \033[0m\n"
+for file in $dir
+do
+echo -en "\t\033[32m \033[32m TEST NUMBER $i $file \033[32m \033[32m  \033[0m\n"
+valgrind 2>&1 --leak-check=full --show-leak-kinds=all ./lem-in < $file | grep "LEAK SUMMARY:" -A5 | awk -F":" '{print $1 $2}'
+i=$((i+1))
+done
+fi
+cd ../

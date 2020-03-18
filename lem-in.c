@@ -6,7 +6,6 @@ int	main(int argc, char **argv)
     t_graph *graph;
     t_paths *paths;
     t_data  *data;
-    t_data  *head;
     t_room  *input;
     int     prev_moves;
 
@@ -17,7 +16,6 @@ int	main(int argc, char **argv)
 
     graph = init_graph();
     data = init_data();
-    head = data;
 
     /* init input */
 
@@ -34,33 +32,18 @@ int	main(int argc, char **argv)
 
     /*************/
 
+
+
 	if (fill_graph(input) < 0)
-    {
-        ft_putstr_fd("ERROR",(int)STDERR_FILENO);
-        delete_data(&data);
-        delete_graph(&graph);
-        free(input);
-        return (0);
-    }
+        ft_error(input);
 	else if (graph->start == NULL || graph->end == NULL || graph->start == graph->end)
-    {
-        ft_putstr_fd("ERROR",(int)STDERR_FILENO);
-        delete_data(&data);
-        delete_graph(&graph);
-        free(input);
-        return (0);
-    }
+        ft_error(input);
 	else if (ssp_finder(graph, graph->start) == 0)
-    {
-        ft_putstr_fd("ERROR",(int)STDERR_FILENO);
-        delete_data(&data);
-        delete_graph(&graph);
-        free(input);
-        return (0);
-    }
+        ft_error(input);
+
+
 
 	connect_parents(graph->end);
-
     prev_moves = INT32_MAX;
     paths = init_paths();
     while (1)
@@ -83,7 +66,7 @@ int	main(int argc, char **argv)
             paths->num_moves = prev_moves;
         }
     }
-    output(paths, head);
+    output(paths, input->data);
     delete_data(&data);
     delete_paths(&paths);
 	delete_graph(&graph);

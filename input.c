@@ -141,7 +141,7 @@ int	    fill_graph(t_room *input)
 	data = input->data;
 	graph = input->graph;
 	reset_input(input);
-	while(get_next_line(fd, &input->line))
+	while(get_next_line(fd, &input->line) > 0)
 	{
 		if (!ft_strcmp("##start", input->line) && graph->start == NULL)
 			input->start = 1;
