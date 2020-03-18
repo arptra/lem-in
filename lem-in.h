@@ -42,6 +42,8 @@ int     chck_ant(t_room *input);
 
 void    moves(t_paths *paths);
 void    output(t_paths *paths, t_data *head);
+void    print_ant(int ant, char *name);
+
 
 void    print_paths(t_vertice_node *from);
 void    print_room(t_graph *graph, int stop);

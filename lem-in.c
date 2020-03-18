@@ -37,7 +37,6 @@ int	main(int argc, char **argv)
 	if (fill_graph(input) < 0)
     {
         ft_putstr_fd("ERROR",(int)STDERR_FILENO);
-        //ft_putstr("ERROR\n");
         delete_data(&data);
         delete_graph(&graph);
         free(input);
@@ -45,7 +44,6 @@ int	main(int argc, char **argv)
     }
 	else if (graph->start == NULL || graph->end == NULL || graph->start == graph->end)
     {
-        //ft_putstr("ERROR\n");
         ft_putstr_fd("ERROR",(int)STDERR_FILENO);
         delete_data(&data);
         delete_graph(&graph);
@@ -54,7 +52,6 @@ int	main(int argc, char **argv)
     }
 	else if (ssp_finder(graph, graph->start) == 0)
     {
-        //ft_putstr("ERROR\n");
         ft_putstr_fd("ERROR",(int)STDERR_FILENO);
         delete_data(&data);
         delete_graph(&graph);
