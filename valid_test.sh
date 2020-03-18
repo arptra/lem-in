@@ -25,3 +25,10 @@ echo $err
 i=$((i+1))
 done
 fi
+
+# to test for right path
+#
+#for file in $dir; do echo $file;  bash checker.sh lem-in $file; done
+#
+#run in dir 42_lem-in_tools
+#

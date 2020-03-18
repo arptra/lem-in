@@ -112,11 +112,15 @@ void    print_paths(t_vertice_node *from)
     ft_putchar('\n');
 }
 
-void	connect_parents(t_vertice_node *vertex)
+int connect_parents(t_vertice_node *vertex)
 {
     t_vertice_node		*p;
     t_vertice_node		*r;
+    t_vertice_node      *stop;
+    int                 check;
 
+    stop = NULL;
+    check = 1;
     while ((p = vertex->parent) != NULL)
     {
         if (p->neighbors_head->weight == 0)
@@ -125,9 +129,15 @@ void	connect_parents(t_vertice_node *vertex)
             if (r != vertex)
                 vertex->parent = r;
             r->parent = p->parent;
+            stop = r;
+            check = 0;
         }
+        if (stop == vertex->parent && check == 1)
+            return (0);
         vertex = vertex->parent;
+        check = 1;
     }
+    return (1);
 }
 
 void	combine_paths(t_vertice_node *start, t_vertice_node *end)

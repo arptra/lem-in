@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
     input->y = 0;
     input->fd = fd;
 
+    /*************/
 
 	if (fill_graph(input) < 0)
     {
@@ -61,7 +62,7 @@ int	main(int argc, char **argv)
         return (0);
     }
 
-    connect_parents(graph->end);
+	connect_parents(graph->end);
 
     prev_moves = INT32_MAX;
     paths = init_paths();
@@ -71,7 +72,8 @@ int	main(int argc, char **argv)
         divide_vertex(graph);
         if (ssp_finder(graph, graph->start) == 0)
             break;
-        connect_parents(graph->end);
+        if (connect_parents(graph->end) == 0)
+            break;
         stick_toghether(graph);
         combine_paths(graph->start, graph->end);
         if (cur_moves(graph) < prev_moves)
@@ -89,6 +91,5 @@ int	main(int argc, char **argv)
     delete_paths(&paths);
 	delete_graph(&graph);
 	free(input);
-
 	return (0);
 }

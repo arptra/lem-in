@@ -29,7 +29,7 @@ void    backward_path(t_graph *graph);
 t_adjacent      *find_self(t_vertice_node *vertex, t_adjacent *tmp);
 void    add_niegh_dup(t_graph *graph, t_vertice_node *node);
 void    vertex_dup(t_graph *graph, t_vertice_node *node);
-void	connect_parents(t_vertice_node *vertex);
+int connect_parents(t_vertice_node *vertex);
 void    combine_paths(t_vertice_node *start, t_vertice_node *end);
 void    divide_vertex(t_graph *graph);
 t_path *merge_sort(t_path *head);
