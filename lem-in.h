@@ -9,16 +9,20 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-
 #define FILL_BUFF 100
 
-void	fill_graph(int fd, t_graph *grap, t_data  *data);
+/*
+ *  struct for parse map's file
+ */
+
+
+int	    fill_graph(t_room *input);
 t_data  *init_data();
 t_data  *add_data(t_data *data, char *str);
 void    print_data(t_data *head);
 void    delete_data(t_data **data);
 
-int    ssp_finder(t_graph *graph, t_vertice_node *node);
+int     ssp_finder(t_graph *graph, t_vertice_node *node);
 void    print_ssp(t_graph *graph);
 void    backward_path(t_graph *graph);
 
@@ -31,10 +35,10 @@ void    divide_vertex(t_graph *graph);
 t_path *merge_sort(t_path *head);
 void    exitfree(t_graph *graph, int i);
 
-void	ft_error(t_graph *graph);
+void	ft_error(t_room *input);
 int     int_checker(char *str, int *flag);
 int     digit_checker(char *str);
-int     chck_ant(char *str, t_graph *graph);
+int     chck_ant(t_room *input);
 
 void    moves(t_paths *paths);
 void    output(t_paths *paths, t_data *head);

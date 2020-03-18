@@ -7,6 +7,7 @@ int	main(int argc, char **argv)
     t_paths *paths;
     t_data  *data;
     t_data  *head;
+    t_room  *input;
     int     prev_moves;
 
     if (argc > 1)
@@ -17,11 +18,49 @@ int	main(int argc, char **argv)
     graph = init_graph();
     data = init_data();
     head = data;
-	fill_graph(fd, graph, data);
-    if (graph->start == NULL && graph->end == NULL)
-        ft_error(graph);
-    if (ssp_finder(graph, graph->start) == 0)
-        ft_error(graph);
+
+    /* init input */
+
+    input = (t_room *)malloc(sizeof(t_room));
+    input->graph = graph;
+    input->data = data;
+    input->line = NULL;
+    input->name = NULL;
+    input->start = 0;
+    input->end = 0;
+    input->x = 0;
+    input->y = 0;
+    input->fd = fd;
+
+
+	if (fill_graph(input) < 0)
+    {
+        ft_putstr_fd("ERROR",(int)STDERR_FILENO);
+        //ft_putstr("ERROR\n");
+        delete_data(&data);
+        delete_graph(&graph);
+        free(input);
+        return (0);
+    }
+	else if (graph->start == NULL || graph->end == NULL || graph->start == graph->end)
+    {
+        //ft_putstr("ERROR\n");
+        ft_putstr_fd("ERROR",(int)STDERR_FILENO);
+        delete_data(&data);
+        delete_graph(&graph);
+        free(input);
+        return (0);
+    }
+	else if (ssp_finder(graph, graph->start) == 0)
+    {
+        //ft_putstr("ERROR\n");
+        ft_putstr_fd("ERROR",(int)STDERR_FILENO);
+        delete_data(&data);
+        delete_graph(&graph);
+        free(input);
+        return (0);
+    }
+
     connect_parents(graph->end);
 
     prev_moves = INT32_MAX;
@@ -49,5 +88,7 @@ int	main(int argc, char **argv)
     delete_data(&data);
     delete_paths(&paths);
 	delete_graph(&graph);
+	free(input);
+
 	return (0);
 }

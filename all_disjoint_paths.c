@@ -37,7 +37,6 @@ void    add_niegh_dup(t_graph *graph, t_vertice_node *node)
 {
     t_adjacent  *niegh;
 
-    //add_niegh_and_link(graph, graph->tail->name, node->name, 0);
     push_nieghbors(graph->tail, node->name, node, 0);
     niegh = node->neighbors_head;
     while (niegh)
@@ -46,7 +45,6 @@ void    add_niegh_dup(t_graph *graph, t_vertice_node *node)
                 niegh->elem_in_main_list != node->to
                 && niegh->elem_in_main_list->dup != 2)
         {
-            //add_niegh_and_link(graph, graph->tail->name, niegh->elem_in_main_list->name, 1);
             push_nieghbors(graph->tail, niegh->elem_in_main_list->name, niegh->elem_in_main_list, 1);
         }
         niegh = niegh->next;
@@ -174,5 +172,4 @@ void    divide_vertex(t_graph *graph)
         }
         cur_vertex = cur_vertex->next;
     }
-
 }

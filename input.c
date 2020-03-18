@@ -9,15 +9,16 @@ void   buf_clr(char buf[], int size)
         buf[i] = 0;
 }
 
-static int 	get_coord(const char *line, int *numb, t_graph *graph)
+static int 	get_coord(const char *line, int *numb, int *check)
 {
 	int i;
 	int j;
-    int flag;
+	int flag;
 	char buf[FILL_BUFF];
 	
 	i = 0;
 	j = 0;
+	flag = 0;
 	while (line[i] && line[i] == ' ')
 		i++;
     buf_clr(buf, FILL_BUFF);
@@ -26,7 +27,7 @@ static int 	get_coord(const char *line, int *numb, t_graph *graph)
 	buf[i] = '\0';
     *numb = int_checker(buf, &flag);
     if (flag || digit_checker(buf) < 0)
-        ft_error(graph);
+        *check = -1;
 	return (i);
 }
 
@@ -39,88 +40,133 @@ static void	reset_input(t_room *input)
 	input->end = 0;
 }
 
-static void	parse_line(char *line, t_room *input, t_graph *graph)
+static int	parse_line(t_room *input)
 {
 	int		i;
 	int     j;
+	int     flag;
 	char	buf[FILL_BUFF];
 	char    *src;
 	char    *dst;
-	
+	char    *line;
+
 	i = -1;
+	flag = 0;
+	line = input->line;
 	buf_clr(buf, FILL_BUFF);
 	while (line[++i] != '\0' && line[i] != ' ' && line[i] != '-')
 		buf[i] = line[i];
 	buf[i] = '\0';
 	if (line[i] == ' ')
 	{
-	    if (buf[0] == 'L')
-	        ft_error(graph);
+	    if (buf[0] == 'L' || buf[0] == '#')
+            return (-1);
         input->name = ft_strdup(buf);
-        i = i + get_coord(&line[i], &input->x, graph);
-        i = i + get_coord(&line[i], &input->y, graph);
+        i = i + get_coord(&line[i], &input->x,  &flag);
+        if (flag < 0)
+        {
+            free(input->name);
+            return (-1);
+        }
+        i = i + get_coord(&line[i], &input->y,  &flag);
+        if (flag < 0)
+        {
+            free(input->name);
+            return (-1);
+        }
         //  Intercept INPUT and check if value ok, else raise ERROR
         while (line[i] && line[i] == ' ')
             i++;
         if (line[i] != '\0')
-            ft_error(graph);
-        if (find_elem(graph, input->name) != NULL)
-            ft_error(graph);
-        add_vertex_node(graph, input); // add new vertex in graph
+        {
+            free(input->name);
+            return (-1);
+        }
+        if (find_elem(input->graph, input->name) != NULL)
+        {
+            free(input->name);
+            return (-1);
+        }
+        add_vertex_node(input->graph, input); // add new vertex in graph
     }
 	else if (line[i] == '-')
     {
 	    j = 0;
 	    src = ft_strdup(buf);
         if (buf[0] == 'L')
-            ft_error(graph);
+        {
+            free(src);
+            return (-1);
+        }
         buf_clr(buf, FILL_BUFF);
 	    while (line[++i] != '\0')
 	        buf[j++] = line[i];
 	    dst = ft_strdup(buf);
         if (buf[0] == 'L')
-            ft_error(graph);
+        {
+            free(src);
+            free(dst);
+            return (-1);
+        }
         // Intercept SRC and DST and check if value ok, else raise ERROR
-        if (add_niegh_and_link(graph, src, dst, 1) == 0)
-            ft_error(graph); // add new link between SRC and DST
-        if (add_niegh_and_link(graph, dst, src, 1) == 0)
-            ft_error(graph);// and vice verse
+        if (add_niegh_and_link(input->graph, src, dst, 1) == 0)
+        {// add new link between SRC and DST
+            free(src);
+            free(dst);
+            return (-1);
+        }
+        if (add_niegh_and_link(input->graph, dst, src, 1) == 0)
+        {// and vice verse
+            free(src);
+            free(dst);
+            return (-1);
+        }
         free(src);
         free(dst);
     }
+    return (1);
 }
 
-void	    fill_graph(int fd, t_graph *graph, t_data  *data)
+int	    fill_graph(t_room *input)
 {
-	char	*line;
-	t_room	*input;
+	t_data  *data;
+	t_graph *graph;
+	int      fd;
 	int      i;
+	int      flag;
 
 	i = 0;
-	input = (t_room *)malloc(sizeof(t_room));
+	flag = 0;
+	fd = input->fd;
+	data = input->data;
+	graph = input->graph;
 	reset_input(input);
-	while(get_next_line(fd, &line))
+	while(get_next_line(fd, &input->line))
 	{
-		if (!ft_strcmp("##start", line) && graph->start == NULL)
+		if (!ft_strcmp("##start", input->line) && graph->start == NULL)
 			input->start = 1;
-		else if (!ft_strcmp("##start", line) && graph->start != NULL)
-            ft_error(graph);
-		else if (!ft_strcmp("##end", line) && graph->end == NULL)
+		else if (!ft_strcmp("##start", input->line) && graph->start != NULL)
+		    flag = -1;
+		else if (!ft_strcmp("##end", input->line) && graph->end == NULL)
 			input->end = 1;
-		else if (!ft_strcmp("##end", line) && graph->end != NULL)
-            ft_error(graph);
-		else if (line[0] == '#')
+		else if (!ft_strcmp("##end", input->line) && graph->end != NULL)
+            flag = -1;
+		else if (input->line[0] == '#')
             ;
 		else if (i == 0)
-            graph->ants = chck_ant(line, graph);
+            graph->ants = chck_ant(input);
 		else
 		{
-			parse_line(line, input, graph);
+			flag = parse_line(input);
 			reset_input(input);
 		}
-		data = add_data(data, line);
-		free(line);
+		data = add_data(data, input->line);
+		free(input->line);
 		i++;
+        if (flag < 0 || graph->ants < 0)
+            return(-1);
 	}
-	free(input);
+    if (flag < 0 || graph->ants < 0)
+        return(-1);
+    return (1);
 }

@@ -54,4 +54,5 @@ void      delete_data(t_data **data)
         free(tmp);
         tmp = next;
     }
+    *data = NULL;
 }

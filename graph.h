@@ -1,9 +1,9 @@
 //
 // Created by Bears Gerda on 02/03/2020.
 //
-
 #ifndef GRAPH_H
 #define GRAPH_H
+
 
 /*
  * A structure to represent an adjacency list node
@@ -48,9 +48,6 @@ typedef struct		s_graph
     t_vertice_node	*start;
     t_vertice_node	*end;
 }					t_graph;
-/*
- *  struct for parse map's file
- */
 
 typedef struct      s_data
 {
@@ -60,12 +57,17 @@ typedef struct      s_data
 
 typedef struct 		s_room
 {
+    int             fd;
     int 			x;
     int 			y;
     char 			*name;
     int				start;
     int 			end;
+    t_graph         *graph;
+    t_data          *data;
+    char            *line;
 }					t_room;
+
 
 
 t_graph             *init_graph();

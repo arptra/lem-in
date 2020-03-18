@@ -4,10 +4,20 @@ int     add_niegh_and_link (t_graph *graph, char *src, char *dst, int weight)
 {
     t_vertice_node  *from;
     t_vertice_node  *link;
+    t_adjacent  *tmp;
 
+    if (ft_strcmp(src, dst) == 0)
+        return (0);
     from = getnth(graph, src, dst, &link);
     if (from == NULL)
         return (0);
+    tmp = from->neighbors_head;
+    while (tmp)
+    {
+        if (tmp->name && ft_strcmp(tmp->name, dst) == 0)
+            return (0);
+        tmp = tmp->next;
+    }
     push_nieghbors(from, dst, link, weight);
     return (1);
 }

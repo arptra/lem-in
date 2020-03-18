@@ -1,8 +1,12 @@
 #include "lem-in.h"
 
-void	ft_error(t_graph *graph)
+void	ft_error(t_room *input)
 {
-    delete_graph(&graph);
+    delete_graph(&input->graph);
+    delete_data(&input->data);
+    if (input->name)
+        free(input->name);
+    free(input);
     //ft_putstr_fd("ERROR",(int)STDERR_FILENO);
     ft_putstr("ERROR\n"); //for script test;
     exit (-1);
@@ -39,13 +43,14 @@ int     digit_checker(char *str)
     return (1);
 }
 
-int     chck_ant(char *str, t_graph *graph)
+int     chck_ant(t_room *input)
 {
     int flag;
     int value;
 
-    value = int_checker(str, &flag);
-    if (flag || digit_checker(str) < 0 || value < 0)
-        ft_error(graph);
+    value = int_checker(input->line, &flag);
+    if (flag || digit_checker(input->line) < 0 || value < 0)
+        //ft_error(input);
+        return (-1);
     return (value);
 }
