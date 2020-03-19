@@ -2,7 +2,7 @@
 
 void	ft_error(t_room *input)
 {
-    ft_putstr_fd("ERROR",(int)STDERR_FILENO);
+    ft_putstr_fd("ERROR\n",(int)STDERR_FILENO);
     delete_data(&input->data);
     delete_graph(&input->graph);
     free(input);

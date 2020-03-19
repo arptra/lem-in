@@ -77,7 +77,7 @@ void                push_nieghbors(t_vertice_node *vertex, char *name, t_vertice
 t_vertice_node      *getnth(t_graph *graph, char *src, char *link, t_vertice_node **ref);
 int add_niegh_and_link (t_graph *graph, char *src, char *dst, int weight);
 int                 add_vertex_dup(t_graph *graph, t_vertice_node *node);
-t_vertice_node      *find_elem(t_graph *graph, char *name);
+t_vertice_node      *find_elem(t_graph *graph, t_room *input);
 void                reset_dijkstra(t_graph *graph);
 void                stick_toghether(t_graph *graph);
 

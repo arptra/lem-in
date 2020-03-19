@@ -3,6 +3,7 @@
 int	main(int argc, char **argv)
 {
 	int     fd;
+	int     start_to_end;
     t_graph *graph;
     t_paths *paths;
     t_data  *data;
@@ -45,6 +46,7 @@ int	main(int argc, char **argv)
 
 	connect_parents(graph->end);
     prev_moves = INT32_MAX;
+    start_to_end = 0;
     paths = init_paths();
     while (1)
     {
@@ -56,6 +58,10 @@ int	main(int argc, char **argv)
             break;
         stick_toghether(graph);
         combine_paths(graph->start, graph->end);
+        if (graph->end->parent == graph->start)
+            start_to_end++;
+        if (start_to_end > 1)
+            break;
         if (cur_moves(graph) < prev_moves)
         {
             delete_paths(&paths);

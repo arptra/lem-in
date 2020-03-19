@@ -1,5 +1,6 @@
 #include "path.h"
 #include <stdlib.h>
+
 void    moves(t_paths *paths)
 {
     t_path  *tmp;
@@ -36,6 +37,11 @@ int     cur_moves(t_graph *graph)
         if (tmp->elem_in_main_list->from)
         {
             amt += path_len(tmp->elem_in_main_list);
+            i++;
+        }
+        if (tmp->elem_in_main_list == graph->end)
+        {
+            amt += 1;
             i++;
         }
         tmp = tmp->next;

@@ -83,14 +83,20 @@ int     add_vertex_dup(t_graph *graph, t_vertice_node *node)
     return (1);
 }
 
-t_vertice_node  *find_elem(t_graph *graph, char *name)
+t_vertice_node  *find_elem(t_graph *graph, t_room *input)
 {
     t_vertice_node *tmp;
 
     tmp = graph->head;
-    while (tmp && ft_strcmp(name, tmp->name) != 0)
+    while (tmp)
+    {
+        if (ft_strcmp(input->name, tmp->name) == 0)
+            return (tmp);
+        if (tmp->x == input->x && tmp->y == input->y)
+            return (tmp);
         tmp = tmp->next;
-    return (tmp);
+    }
+    return (NULL);
 }
 
 void    print_graph(t_graph *graph)
