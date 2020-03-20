@@ -22,7 +22,7 @@ $ ./lem-in maps/theta_unequal_4.map | python3 lemin42-visual/lemin_visual.py
 # test lem-in
 
 ```
-$ make && cp lem-in checker && cd checker && bash checker_lem-in.sh -abcdef
+$ make && cp lem-in checker && cd checker && bash check_lem-in.sh -abcdef
 ```
 ```
 $ -h    show options with brief descriptions
