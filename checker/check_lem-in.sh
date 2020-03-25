@@ -1,6 +1,7 @@
 #!/bin/bash
 
 check_errors(){
+SUB="ERROR"
 echo -e "\n\e[1;34mERROR MANAGEMENT TESTS\e[0m\n"
 dir="validation_errs/*"
 i=1;
@@ -8,11 +9,11 @@ for file in $dir
 do
 err=$(./lem-in 2>&1 < $file)
 test_name=$(printf $file | awk -F"/" '{print $(NF - 1), $NF}' | awk -F" " '{print $2}' | awk -F"." '{print $1}')
-if [ "$err" = $"ERROR" ]
+if [[ "$err" == *"$SUB"* ]]
 then
-echo -en "test #:$i $test_name PASS: \033[32m \033[32m OK \033[0m\n"
+echo -en "test #:$i $test_name PASS: \033[32m \033[32m OK \033[0m ERROR TYPE: $err\n"
 else
-echo -en "test #:$i NOT PASS filename: $test_name \033[31m \033[31m KO \033[0m\n"
+echo -en "test #:$i NOT PASS: $test_name \033[31m \033[31m KO \033[0m\n"
 fi
 i=$((i+1))
 done
