@@ -3,6 +3,7 @@
 int	main(int argc, char **argv)
 {
 	int     fd;
+	int     flag;
 	int     start_to_end;
     t_graph *graph;
     t_paths *paths;
@@ -24,23 +25,26 @@ int	main(int argc, char **argv)
     input->graph = graph;
     input->data = data;
     input->line = NULL;
+    input->src = NULL;
+    input->dst = NULL;
     input->name = NULL;
     input->start = 0;
     input->end = 0;
     input->x = 0;
     input->y = 0;
     input->fd = fd;
+    input->i = 0;
 
     /*************/
 
 
 
-	if (fill_graph(input) < 0)
-        ft_error(input);
+	if ((flag = fill_graph(input)) < 0)
+        ft_error(input, flag);
 	else if (graph->start == NULL || graph->end == NULL || graph->start == graph->end)
-        ft_error(input);
+        ft_error(input, -8);
 	else if (ssp_finder(graph, graph->start) == 0)
-        ft_error(input);
+        ft_error(input, -9);
 
 
 

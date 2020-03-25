@@ -1,8 +1,48 @@
 #include "lem-in.h"
-
-void	ft_error(t_room *input)
+void     error_type(int err)
 {
-    ft_putstr_fd("ERROR\n",(int)STDERR_FILENO);
+    if (err == -1)
+        ft_putstr_fd(" bad coordinates",(int)STDERR_FILENO);
+    else if (err == -2)
+        ft_putstr_fd(" too many parameters",(int)STDERR_FILENO);
+    else if (err == -3)
+        ft_putstr_fd(" vertex already exist or duplicate coordinates",(int)STDERR_FILENO);
+    else if (err == -4)
+        ft_putstr_fd(" link already exist or vertex doesn't exist",(int)STDERR_FILENO);
+    else if (err == -5)
+        ft_putstr_fd(" start or end already exist",(int)STDERR_FILENO);
+    else if (err == -6)
+        ft_putstr_fd(" duplicate start or end",(int)STDERR_FILENO);
+    else if (err == -7)
+        ft_putstr_fd(" empty line",(int)STDERR_FILENO);
+    else if (err == -8)
+        ft_putstr_fd(" no start or end",(int)STDERR_FILENO);
+    else if (err == -9)
+        ft_putstr_fd(" path from to start to end not found",(int)STDERR_FILENO);
+    else if (err < -9)
+        ft_putstr_fd(" name start with L",(int)STDERR_FILENO);
+}
+
+void	ft_error(t_room *input, int err)
+{
+    ft_putstr_fd("ERROR at line ",(int)STDERR_FILENO);
+    ft_putnbr_fd(input->i,(int)STDERR_FILENO);
+    error_type(err);
+    ft_putstr_fd("\n",(int)STDERR_FILENO);
+    if (err > -4)
+        free(input->name);
+    else if (err == -4)
+    {
+        free(input->src);
+        free(input->dst);
+    }
+    else if (err == -11)
+        free(input->src);
+    else if (err == -12)
+    {
+        free(input->src);
+        free(input->dst);
+    }
     delete_data(&input->data);
     delete_graph(&input->graph);
     free(input);

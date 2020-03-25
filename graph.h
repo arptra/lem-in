@@ -58,8 +58,11 @@ typedef struct      s_data
 typedef struct 		s_room
 {
     int             fd;
+    int             i;
     int 			x;
     int 			y;
+    char            *src;
+    char            *dst;
     char 			*name;
     int				start;
     int 			end;

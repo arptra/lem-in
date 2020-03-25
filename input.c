@@ -46,8 +46,6 @@ static int	parse_line(t_room *input)
 	int     j;
 	int     flag;
 	char	buf[FILL_BUFF];
-	char    *src;
-	char    *dst;
 	char    *line;
 
 	i = -1;
@@ -60,67 +58,40 @@ static int	parse_line(t_room *input)
 	if (line[i] == ' ')
 	{
 	    if (buf[0] == 'L' || buf[0] == '#')
-            return (-1);
+            ft_error(input, -10);
         input->name = ft_strdup(buf);
         i = i + get_coord(&line[i], &input->x,  &flag);
         if (flag < 0)
-        {
-            free(input->name);
-            return (-1);
-        }
+            ft_error(input, -1);
         i = i + get_coord(&line[i], &input->y,  &flag);
         if (flag < 0)
-        {
-            free(input->name);
-            return (-1);
-        }
+            ft_error(input, -1);
         while (line[i] && line[i] == ' ')
             i++;
         if (line[i] != '\0')
-        {
-            free(input->name);
-            return (-1);
-        }
+            ft_error(input, -2);
         if (find_elem(input->graph, input) != NULL)
-        {
-            free(input->name);
-            return (-1);
-        }
+            ft_error(input, -3);
         add_vertex_node(input->graph, input);
     }
 	else if (line[i] == '-')
     {
 	    j = 0;
-	    src = ft_strdup(buf);
+	    input->src = ft_strdup(buf);
         if (buf[0] == 'L')
-        {
-            free(src);
-            return (-1);
-        }
+            ft_error(input, -11);
         buf_clr(buf, FILL_BUFF);
 	    while (line[++i] != '\0')
 	        buf[j++] = line[i];
-	    dst = ft_strdup(buf);
+	    input->dst = ft_strdup(buf);
         if (buf[0] == 'L')
-        {
-            free(src);
-            free(dst);
-            return (-1);
-        }
-        if (add_niegh_and_link(input->graph, src, dst, 1) == 0)
-        {
-            free(src);
-            free(dst);
-            return (-1);
-        }
-        if (add_niegh_and_link(input->graph, dst, src, 1) == 0)
-        {
-            free(src);
-            free(dst);
-            return (-1);
-        }
-        free(src);
-        free(dst);
+            ft_error(input, -12);
+        if (add_niegh_and_link(input->graph, input->src, input->dst, 1) == 0)
+            ft_error(input, -4);
+        if (add_niegh_and_link(input->graph, input->dst, input->src, 1) == 0)
+            ft_error(input, -4);
+        free(input->src);
+        free(input->dst);
     }
 	else
         return (-1);
@@ -146,18 +117,18 @@ int	    fill_graph(t_room *input)
         if (i == 0)
             graph->ants = chck_ant(input);
         else if (input->line[0] == '\0')
-            flag = -1;
+            flag = -7;
         else if (!ft_strcmp("##start", input->line) && graph->start == NULL)
 			input->start = 1;
         else if (!ft_strcmp("##start", input->line) && graph->start != NULL)
-		    flag = -1;
+		    flag = -5;
         else if (!ft_strcmp("##end", input->line) && graph->end == NULL)
 			input->end = 1;
         else if (!ft_strcmp("##end", input->line) && graph->end != NULL)
-            flag = -1;
+            flag = -5;
         else if (input->line[0] == '#' && input->line[1] == '#' &&
                 (input->start != 0 || input->end != 0))
-            flag = -1;
+            flag = -6;
         else if (input->line[0] == '#')
             ;
         else
@@ -167,11 +138,11 @@ int	    fill_graph(t_room *input)
 		}
 		data = add_data(data, input->line);
 		free(input->line);
-		i++;
+		input->i = ++i;
         if (flag < 0 || graph->ants < 0)
-            return(-1);
+            return(flag);
 	}
     if (flag < 0 || graph->ants < 0)
-        return(-1);
+        return(flag);
     return (1);
 }

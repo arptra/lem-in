@@ -35,7 +35,7 @@ void    divide_vertex(t_graph *graph);
 t_path *merge_sort(t_path *head);
 void    exitfree(t_graph *graph, int i);
 
-void	ft_error(t_room *input);
+void	ft_error(t_room *input, int err);
 int     int_checker(char *str, int *flag);
 int     digit_checker(char *str);
 int     chck_ant(t_room *input);
