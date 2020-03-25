@@ -1,7 +1,9 @@
 # lem-in
 Elementary algorithmic project
 
-for test: ./lem-in maps/test2.map
+working version now placed in sync branche use ```git checkout sync``` after clone  
+
+for test: ./lem-in < maps/test2.map
 
 # lemin visualization
 
