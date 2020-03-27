@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 t_graph			*init_graph(void)
 {
@@ -23,8 +23,6 @@ t_graph			*init_graph(void)
 	tmp->end = NULL;
 	tmp->size = 0;
 	tmp->ants = 0;
-	tmp->names = NULL;
-	tmp->crdnts = NULL;
 	return (tmp);
 }
 
@@ -113,36 +111,4 @@ void			push_nieghbors(t_vertice_node *vertex, char *name,
 		cur->visit = 1;
 		cur->elem_in_main_list = ref;
 	}
-}
-
-t_vertice_node	*getnth(t_graph *graph, char *src,
-							char *link, t_vertice_node **ref)
-{
-	t_vertice_node	*tmp;
-	t_vertice_node	*save;
-	int				s;
-	int				l;
-
-	s = 1;
-	l = 1;
-	tmp = graph->head;
-	while (tmp && ((s = ft_strcmp(tmp->name, src)) != 0 &&
-			(l = ft_strcmp(tmp->name, link)) != 0))
-		tmp = tmp->next;
-	save = tmp;
-	if (s == 0 && l != 0)
-	{
-		while (tmp && ft_strcmp(tmp->name, link) != 0)
-			tmp = tmp->next;
-		*ref = tmp;
-		return (save);
-	}
-	else if (l == 0 && s != 0)
-	{
-		while (tmp && ft_strcmp(tmp->name, src) != 0)
-			tmp = tmp->next;
-		*ref = save;
-		return (tmp);
-	}
-	return (NULL);
 }

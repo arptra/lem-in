@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 int				add_niegh_and_link(t_graph *graph, char *src,
 										char *dst, int weight)
 {
 	t_vertice_node	*from;
 	t_vertice_node	*link;
-	t_adjacent *tmp;
+	t_adjacent		*tmp;
 
 	if (ft_strcmp(src, dst) == 0)
 		return (0);

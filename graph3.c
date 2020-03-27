@@ -49,6 +49,19 @@ void	popvertex(t_graph *graph)
 	free(next);
 }
 
+void	tail_pop(t_graph *graph)
+{
+	t_vertice_node	*tmp;
+
+	while (graph->tail->name[0] == 'L')
+	{
+		tmp = graph->tail;
+		while (tmp->neighbors_head)
+			popneigh(tmp);
+		popvertex(graph);
+	}
+}
+
 void	stick_toghether(t_graph *graph)
 {
 	t_vertice_node	*tmp;
@@ -72,11 +85,5 @@ void	stick_toghether(t_graph *graph)
 		}
 		tmp = tmp->next;
 	}
-	while (graph->tail->name[0] == 'L')
-	{
-		tmp = graph->tail;
-		while (tmp->neighbors_head)
-			popneigh(tmp);
-		popvertex(graph);
-	}
+	tail_pop(graph);
 }

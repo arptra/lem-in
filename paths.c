@@ -91,21 +91,3 @@ void		save_path(t_vertice_node *node)
 		tmp = tmp->to;
 	}
 }
-
-void		add_paths(t_graph *graph, t_paths *paths)
-{
-	t_adjacent *tmp;
-
-	paths->ants = graph->ants;
-	tmp = graph->start->neighbors_head;
-	while (tmp)
-	{
-		if (tmp->elem_in_main_list->from ||
-			tmp->elem_in_main_list == graph->end)
-		{
-			save_path(tmp->elem_in_main_list);
-			addback(paths, tmp->elem_in_main_list);
-		}
-		tmp = tmp->next;
-	}
-}
