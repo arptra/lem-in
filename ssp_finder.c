@@ -60,21 +60,3 @@ int    ssp_finder(t_graph *graph, t_vertice_node *node)
     delete_queue(&queue);
     return (1);
 }
-
-void    print_ssp(t_graph *graph)
-{
-    t_vertice_node *tmp;
-
-    tmp = graph->end;
-    ft_putstr("\nSSP from END to START = ");
-    ft_putstr(tmp->name);
-    ft_putstr(" -> ");
-    while (tmp->parent)
-    {
-        ft_putstr(tmp->parent->name);
-        if (tmp->parent->parent)
-            ft_putstr(" -> ");
-        tmp = tmp->parent;
-    }
-    ft_putchar('\n');
-}

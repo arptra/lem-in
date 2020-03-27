@@ -30,12 +30,10 @@ void	delete_graph(t_graph **graph)
     t_adjacent      *adj_next;
 
     tmp = (*graph)->head;
-    next = NULL;
     while (tmp)
     {
         next = tmp->next;
         adj_tmp = tmp->neighbors_head;
-        adj_next = NULL;
         while (adj_tmp)
         {
             adj_next = adj_tmp->next;

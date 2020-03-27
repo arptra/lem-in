@@ -1,24 +1,6 @@
 #include "graph.h"
 #include "lem-in.h"
 
-void    backward_path(t_graph *graph)
-{
-    t_vertice_node  *tmp;
-
-    tmp = graph->end;
-    tmp->to = NULL;
-    tmp->dist = INT32_MAX;
-    while (tmp->parent)
-    {
-        tmp->from = tmp->parent;
-        tmp->from->dist = INT32_MAX;
-        tmp->parent->to = tmp;
-        tmp->parent = NULL;
-        tmp = tmp->from;
-    }
-    graph->start->to = NULL;
-}
-
 t_adjacent      *find_self(t_vertice_node *vertex, t_adjacent *tmp)
 {
     t_vertice_node *self;
@@ -33,7 +15,7 @@ t_adjacent      *find_self(t_vertice_node *vertex, t_adjacent *tmp)
     return (tmp);
 }
 
-void    add_niegh_dup(t_graph *graph, t_vertice_node *node)
+void            add_niegh_dup(t_graph *graph, t_vertice_node *node)
 {
     t_adjacent  *niegh;
 
@@ -52,7 +34,7 @@ void    add_niegh_dup(t_graph *graph, t_vertice_node *node)
 
 }
 
-void    vertex_dup(t_graph *graph, t_vertice_node *node)
+void            vertex_dup(t_graph *graph, t_vertice_node *node)
 {
     t_adjacent  *from;
     t_adjacent  *to;
@@ -83,36 +65,7 @@ void    vertex_dup(t_graph *graph, t_vertice_node *node)
     add_niegh_dup(graph, node);
 }
 
-void    print_paths(t_vertice_node *from)
-{
-    t_adjacent *niegh;
-    t_vertice_node  *tmp;
-    int         i;
-
-    i = 0;
-    niegh = from->neighbors_head;
-    while (niegh)
-    {
-        tmp = niegh->elem_in_main_list;
-        if (tmp->to)
-        {
-            ft_putstr("\npath #");
-            ft_putnbr(++i);
-            ft_putstr(": ");
-        }
-        while (tmp->to)
-        {
-            ft_putstr(tmp->name);
-            if (tmp->to->to)
-                ft_putstr(" -> ");
-            tmp = tmp->to;
-        }
-        niegh = niegh->next;
-    }
-    ft_putchar('\n');
-}
-
-int connect_parents(t_vertice_node *vertex)
+int             connect_parents(t_vertice_node *vertex)
 {
     t_vertice_node		*p;
     t_vertice_node		*r;
@@ -140,7 +93,7 @@ int connect_parents(t_vertice_node *vertex)
     return (1);
 }
 
-void	combine_paths(t_vertice_node *start, t_vertice_node *end)
+void	        combine_paths(t_vertice_node *start, t_vertice_node *end)
 {
     t_vertice_node		*a;
     t_vertice_node		*b;
@@ -166,7 +119,7 @@ void	combine_paths(t_vertice_node *start, t_vertice_node *end)
     }
 }
 
-void    divide_vertex(t_graph *graph)
+void            divide_vertex(t_graph *graph)
 {
     t_vertice_node *tmp;
     t_adjacent *cur_vertex;
