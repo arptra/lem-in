@@ -2,6 +2,7 @@
 #define LEM_IN_QUEUE_H
 
 #include "graph.h"
+#include <stdlib.h>
 
 typedef struct		s_node
 {

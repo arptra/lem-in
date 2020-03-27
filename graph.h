@@ -4,6 +4,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <stdlib.h>
 
 /*
  * A structure to represent an adjacency list node

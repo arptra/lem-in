@@ -1,5 +1,4 @@
 #include "graph.h"
-#include "lem-in.h"
 
 t_adjacent      *find_self(t_vertice_node *vertex, t_adjacent *tmp)
 {
