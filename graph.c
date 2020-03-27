@@ -39,6 +39,18 @@ t_adjacent      *add_nieghbors(t_vertice_node *node)
     return (tmp);
 }
 
+void    init_value(t_vertice_node *tmp)
+{
+    tmp->dup = 0;
+    tmp->save = NULL;
+    tmp->parent = NULL;
+    tmp->from = NULL;
+    tmp->to = NULL;
+    tmp->next = NULL;
+    tmp->neighbors_head = NULL;
+    tmp->neighbors_tail = NULL;
+}
+
 int             add_vertex_node(t_graph *graph, t_room *room)
 {
     t_vertice_node  *tmp;
@@ -46,8 +58,7 @@ int             add_vertex_node(t_graph *graph, t_room *room)
     tmp = (t_vertice_node *)malloc(sizeof(t_vertice_node));
     if (tmp == NULL)
         return (0);
-    tmp->neighbors_head = NULL;
-    tmp->neighbors_tail = NULL;
+    init_value(tmp);
     tmp->neighbors_head = add_nieghbors(tmp);
     if (tmp->neighbors_head == NULL)
         return (0);
@@ -55,12 +66,6 @@ int             add_vertex_node(t_graph *graph, t_room *room)
     tmp->name = room->name;
     tmp->x = room->x;
     tmp->y = room->y;
-    tmp->dup = 0;
-    tmp->save = NULL;
-    tmp->parent = NULL;
-    tmp->from = NULL;
-    tmp->to = NULL;
-    tmp->next = NULL;
     tmp->prev = graph->tail;
     if (graph->tail)
         graph->tail->next = tmp;

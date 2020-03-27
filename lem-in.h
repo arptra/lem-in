@@ -9,36 +9,47 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-
 #define FILL_BUFF 100
 
-void	fill_graph(int fd, t_graph *graph);
+/*
+ *  struct for parse map's file
+ */
 
-int    ssp_finder(t_graph *graph, t_vertice_node *node);
+
+int	    fill_graph(t_room *input);
+t_data  *init_data();
+t_data  *add_data(t_data *data, char *str);
+void    print_data(t_data *head);
+void    delete_data(t_data **data);
+
+int     ssp_finder(t_graph *graph, t_vertice_node *node);
 void    print_ssp(t_graph *graph);
 void    backward_path(t_graph *graph);
 
 t_adjacent      *find_self(t_vertice_node *vertex, t_adjacent *tmp);
 void    add_niegh_dup(t_graph *graph, t_vertice_node *node);
 void    vertex_dup(t_graph *graph, t_vertice_node *node);
-void	connect_parents(t_vertice_node *vertex);
+int connect_parents(t_vertice_node *vertex);
 void    combine_paths(t_vertice_node *start, t_vertice_node *end);
 void    divide_vertex(t_graph *graph);
 t_path *merge_sort(t_path *head);
 void    exitfree(t_graph *graph, int i);
 
+void	ft_error(t_room *input, int err);
+int     int_checker(char *str, int *flag);
+int     digit_checker(char *str);
+int     chck_ant(t_room *input);
+
+void    moves(t_paths *paths);
+void    output(t_paths *paths, t_data *head);
+void    print_ant(int ant, char *name);
+
+
 void    print_paths(t_vertice_node *from);
 void    print_room(t_graph *graph, int stop);
 
-/* ************************************************************************** */
-/*   written by: klekisha                                                     */
-/* ************************************************************************** */
 
-void	ft_error();
-int		ft_chck_arg(int intgr, const char *strng);
-int		ft_chck_nm_w_crdnts(t_room *input, t_graph *graph);
-int		ft_chk_name(const char *name, t_graph *graph);
-void	ft_del_crdnts(t_crdnts **crdnts);
-void	ft_del_names(t_names **names);
+
+
 
 #endif //LEM_IN_H

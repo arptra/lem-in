@@ -1,78 +1,92 @@
 #include "lem-in.h"
-
-int			ft_chck_arg(int intgr, const char *strng)
+void     error_type(int err)
 {
-	return (ft_strcmp(ft_itoa(intgr),strng));
+    if (err == -1)
+        ft_putstr_fd(" bad coordinates",(int)STDERR_FILENO);
+    else if (err == -2)
+        ft_putstr_fd(" too many parameters",(int)STDERR_FILENO);
+    else if (err == -3)
+        ft_putstr_fd(" vertex already exist or duplicate coordinates",(int)STDERR_FILENO);
+    else if (err == -4)
+        ft_putstr_fd(" link already exist or vertex doesn't exist",(int)STDERR_FILENO);
+    else if (err == -5)
+        ft_putstr_fd(" start or end already exist",(int)STDERR_FILENO);
+    else if (err == -6)
+        ft_putstr_fd(" duplicate start or end",(int)STDERR_FILENO);
+    else if (err == -7)
+        ft_putstr_fd(" empty line",(int)STDERR_FILENO);
+    else if (err == -8)
+        ft_putstr_fd(" no start or end",(int)STDERR_FILENO);
+    else if (err == -9)
+        ft_putstr_fd(" path from to start to end not found",(int)STDERR_FILENO);
+    else if (err < -9)
+        ft_putstr_fd(" name start with L",(int)STDERR_FILENO);
 }
 
-void		ft_error()
+void	ft_error(t_room *input, int err)
 {
-	ft_putstr_fd("ERROR",(int)STDERR_FILENO);
-	exit (-1);
+    ft_putstr_fd("ERROR at line ",(int)STDERR_FILENO);
+    ft_putnbr_fd(input->i,(int)STDERR_FILENO);
+    error_type(err);
+    ft_putstr_fd("\n",(int)STDERR_FILENO);
+    if (err > -4)
+        free(input->name);
+    else if (err == -4)
+    {
+        free(input->src);
+        free(input->dst);
+    }
+    else if (err == -11)
+        free(input->src);
+    else if (err == -12)
+    {
+        free(input->src);
+        free(input->dst);
+    }
+    delete_data(&input->data);
+    delete_graph(&input->graph);
+    free(input);
+    exit(-1);
 }
 
-int			ft_chck_nm_w_crdnts(t_room *input, t_graph *graph)
+int     int_checker(char *str, int *flag)
 {
-	t_names		*tmp1;
-	t_crdnts	*tmp2;
+    int check;
 
-	if (graph->names)
-	{
-		tmp1 = graph->names;
-		tmp2 = graph->crdnts;
-		while (tmp1->next && tmp2->next)
-		{
-			if (!ft_strcmp(input->name, tmp1->name) || (
-				input->x == tmp2->x &&
-				input->y == tmp2->y))
-				return (1);
-			tmp1 = tmp1->next;
-			tmp2 = tmp2->next;
-		}
-		if ((tmp1->next || tmp2->next))
-			return (1);
-		if (!ft_strcmp(input->name, tmp1->name) || (
-			input->x == tmp2->x &&
-			input->y == tmp2->y))
-			return (1);
-		tmp1->next = ft_nw_name(input->name);
-		tmp2->next = ft_nw_crdnts(input->x, input->y);
-	}
-	else
-	{
-		graph->names = ft_nw_name(input->name);
-		graph->crdnts = ft_nw_crdnts(input->x, input->y);		
-	}
-	// while (graph->names->next && graph->crdnts->next)
-	// {
-	// 	if (!ft_strcmp(input->name, graph->names->name) || (
-	// 		input->x == graph->crdnts->x &&
-	// 		input->y == graph->crdnts->y))
-	// 		return (1);
-	// 	graph->names = graph->names->next;
-	// 	graph->crdnts = graph->crdnts->next;
-	// }
-	// if (graph->names->next || graph->crdnts->next)
-	// 	return (1);
-	// if (!ft_strcmp(input->name, graph->names->name) || (
-	// 	input->x == graph->crdnts->x &&
-	// 	input->y == graph->crdnts->y))
-	// 	return (1);
-	// graph->names->next = ft_nw_name(input->name);
-	// graph->crdnts->next = ft_nw_crdnts(input->x, input->y);
-	return (0);
+    check = ft_atoi(str);
+    *flag = 0;
+    if (check == 0)
+        if (ft_strcmp(str, "0\0") != 0)
+            *flag = 1;
+    return (check);
 }
 
-int			ft_chk_name(const char *name, t_graph *graph)
+int     digit_checker(char *str)
 {
-	t_names			*tmp1;
+    int i;
+    int sign;
 
-	tmp1 = graph->names;
-	while (tmp1)
-	{
-		if (!ft_strcmp(name, tmp1->name))
-			return (1);
-		tmp1 = tmp1->next;
-	}
-	return (0);	
+    i = -1;
+    sign = 0;
+    while (str[++i] != '\0')
+    {
+        if (str[i] == '-' && i == 0)
+            sign++;
+        else if (!ft_isdigit(str[i]))
+            return (-1);
+    }
+     if (sign > 1)
+        return (-2);
+    return (1);
+}
+
+int     chck_ant(t_room *input)
+{
+    int flag;
+    int value;
+
+    value = int_checker(input->line, &flag);
+    if (flag || digit_checker(input->line) < 0 || value < 0)
+        return (-1);
+    return (value);
 }

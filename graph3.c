@@ -4,7 +4,6 @@
 void		popneigh(t_vertice_node *vertex)
 {
     t_adjacent	*next;
-    t_adjacent	*tmp;
     t_adjacent  *neigh;
 
     neigh = vertex->neighbors_tail;
@@ -24,7 +23,6 @@ void		popvertex(t_graph *graph)
 {
     t_vertice_node	*next;
     t_vertice_node	*tmp;
-    t_adjacent  *neigh;
 
     tmp = graph->tail;
     if (tmp == NULL)
@@ -40,7 +38,7 @@ void		popvertex(t_graph *graph)
     free(next);
 }
 
-void    stick_toghether(t_graph *graph)
+void        stick_toghether(t_graph *graph)
 {
     t_vertice_node  *tmp;
     t_adjacent      *neigh;
@@ -70,81 +68,4 @@ void    stick_toghether(t_graph *graph)
             popneigh(tmp);
         popvertex(graph);
     }
-}
-
-void    formater(char *name, int stop)
-{
-    int i;
-
-    i = 0;
-    if (ft_strlen(name) < stop)
-    {
-        while (i++ < stop - ft_strlen(name))
-            ft_putchar(' ');
-
-    }
-}
-
-void    print_room(t_graph *graph, int stop)
-{
-    t_vertice_node  *tmp;
-
-    tmp = graph->head;
-    ft_putstr("\nroom  |");
-    while (tmp)
-    {
-        ft_putstr(tmp->name);
-        formater(tmp->name, stop);
-        ft_putstr("|");
-        tmp = tmp->next;
-    }
-    tmp = graph->head;
-    ft_putstr("\nparent|");
-    while (tmp)
-    {
-        if (tmp->parent)
-        {
-            ft_putstr(tmp->parent->name);
-            formater(tmp->parent->name, stop);
-        }
-        else
-            ft_putstr("   ");
-        ft_putstr("|");
-        tmp = tmp->next;
-    }
-    tmp = graph->head;
-    ft_putstr("\nfrom  |");
-    while (tmp)
-    {
-        if (tmp->from)
-        {
-            ft_putstr(tmp->from->name);
-            formater(tmp->from->name, stop);
-        }
-        else
-            ft_putstr("   ");
-        ft_putstr("|");
-        tmp = tmp->next;
-    }
-    tmp = graph->head;
-    ft_putstr("\nto    |");
-    while (tmp)
-    {
-        if (tmp->to)
-        {
-            ft_putstr(tmp->to->name);
-            formater(tmp->to->name, stop);
-        }
-        else
-            ft_putstr("   ");
-        ft_putstr("|");
-        tmp = tmp->next;
-    }
-    ft_putchar('\n');
-}
-
-void    exitfree(t_graph *graph, int i)
-{
-    delete_graph(&graph);
-    exit(i);
 }

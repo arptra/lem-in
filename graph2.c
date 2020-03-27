@@ -1,12 +1,25 @@
 #include "lem-in.h"
 
-void    add_niegh_and_link (t_graph *graph, char *src, char *dst, int weight)
+int     add_niegh_and_link (t_graph *graph, char *src, char *dst, int weight)
 {
     t_vertice_node  *from;
     t_vertice_node  *link;
+    t_adjacent  *tmp;
 
+    if (ft_strcmp(src, dst) == 0)
+        return (0);
     from = getnth(graph, src, dst, &link);
+    if (from == NULL)
+        return (0);
+    tmp = from->neighbors_head;
+    while (tmp)
+    {
+        if (tmp->name && ft_strcmp(tmp->name, dst) == 0)
+            return (0);
+        tmp = tmp->next;
+    }
     push_nieghbors(from, dst, link, weight);
+    return (1);
 }
 
 void	delete_graph(t_graph **graph)
@@ -16,15 +29,11 @@ void	delete_graph(t_graph **graph)
     t_adjacent      *adj_tmp;
     t_adjacent      *adj_next;
 
-	ft_del_names(&((*graph)->names));
-	// ft_del_crdnts((*graph)->crdnts);
-	tmp = (*graph)->head;
-    next = NULL;
+    tmp = (*graph)->head;
     while (tmp)
     {
         next = tmp->next;
         adj_tmp = tmp->neighbors_head;
-        adj_next = NULL;
         while (adj_tmp)
         {
             adj_next = adj_tmp->next;
@@ -72,14 +81,20 @@ int     add_vertex_dup(t_graph *graph, t_vertice_node *node)
     return (1);
 }
 
-t_vertice_node  *find_elem(t_graph *graph, char *name)
+t_vertice_node  *find_elem(t_graph *graph, t_room *input)
 {
     t_vertice_node *tmp;
 
     tmp = graph->head;
-    while (tmp && ft_strcmp(name, tmp->name) != 0)
+    while (tmp)
+    {
+        if (ft_strcmp(input->name, tmp->name) == 0)
+            return (tmp);
+        if (tmp->x == input->x && tmp->y == input->y)
+            return (tmp);
         tmp = tmp->next;
-    return (tmp);
+    }
+    return (NULL);
 }
 
 void    print_graph(t_graph *graph)

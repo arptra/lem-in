@@ -51,14 +51,13 @@ void    print_line(t_ants *ants)
     }
 }
 
-void    output(t_paths *paths, t_graph *graph)
+void    output(t_paths *paths, t_data *head)
 {
     t_ants  *ants;
     int     i;
-    int     j;
 
     i = 1;
-    j = 85;
+    print_data(head);
     ants = init_ants();
     moves(paths);
     ft_putchar('\n');
