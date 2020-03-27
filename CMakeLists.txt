@@ -19,7 +19,7 @@ add_executable(lem-in
                 path.h
                 mergesort.c
                 ants.c
-                output.c parser.c)
+                output.c parser.c algorithm.c)
 
 add_subdirectory(libft)
 

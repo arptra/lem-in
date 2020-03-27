@@ -122,13 +122,29 @@ int		parse_line(t_room *input)
 	return (1);
 }
 
+void    get_ant(t_room *input)
+{
+    int ants;
+
+    ants = chck_ant(input);
+    if (input->graph->ants == 0 && ants > 0)
+        input->graph->ants = ants;
+    else if (input->graph->ants == 0 && ants < 0)
+    {
+        ft_putstr_fd("ERROR at line ", (int)STDERR_FILENO);
+        ft_putnbr_fd(input->i, (int)STDERR_FILENO);
+        ft_putstr_fd(" bad ants", (int)STDERR_FILENO);
+        ft_error(input, 0);
+    }
+}
+
 void	check_and_parse(t_room *input, int *flag)
 {
 	t_graph	*graph;
 
 	graph = input->graph;
-	if (input->start == 0 && graph->start == NULL && input->line[0] != '#')
-		graph->ants = chck_ant(input);
+	if (input->start == 0 && graph->start == NULL && input->line[0] != '#' && graph->ants == 0)
+	    get_ant(input);
 	else if (input->line[0] == '\0')
 		*flag = -7;
 	else if (!ft_strcmp("##start", input->line) && graph->start == NULL)
