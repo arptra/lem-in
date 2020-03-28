@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "graph.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 t_data	*init_data(void)
 {

@@ -13,7 +13,7 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include "libft/libft.h"
+# include "libft.h"
 # include "graph.h"
 # include "queue.h"
 # include "path.h"
