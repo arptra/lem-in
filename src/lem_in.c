@@ -32,7 +32,7 @@ t_room	*init_input(t_graph *graph, t_data *data, int fd)
 	return (tmp);
 }
 
-int		main(int argc, char **argv)
+int		main(void)
 {
 	int		fd;
 	t_graph	*graph;
