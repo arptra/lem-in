@@ -19,7 +19,7 @@ $ pip3 install pyside2
 # running visualization
 
 ```
-$ ./lem-in maps/theta_unequal_4.map | python3 lemin42-visual/lemin_visual.py
+$ ./lem-in < maps/theta_unequal_4.map | python3 lemin42-visual/lemin_visual.py
 ```
 # test lem-in
 
