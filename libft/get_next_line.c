@@ -6,7 +6,7 @@
 /*   By: bgerda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 17:35:34 by bgerda            #+#    #+#             */
-/*   Updated: 2020/02/20 10:12:56 by bgerda           ###   ########.fr       */
+/*   Updated: 2020/03/28 22:02:37 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,7 @@ int				get_next_line(const int fd, char **line)
 				|| (i == 0 && ft_strlen(cur->content) != 0))
 			flag = get_line(&cur, &line);
 		else if (ft_strlen(cur->content) == 0)
-		{
-            free(list->content);
-            free(list);
-            return (0);
-        }
+			return (ft_content_free(list));
 	}
 	return (flag);
 }

@@ -6,7 +6,7 @@
 /*   By: student <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 18:01:42 by student           #+#    #+#             */
-/*   Updated: 2020/03/27 18:02:09 by student          ###   ########.fr       */
+/*   Updated: 2020/03/28 21:44:44 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	get_ant(t_room *input)
 		ft_putnbr_fd(input->i, (int)STDERR_FILENO);
 		ft_putstr_fd(" bad ants", (int)STDERR_FILENO);
 		free(input->line);
-        delete_data(&input->data);
-        delete_graph(&input->graph);
-        free(input);
-        exit(-1);
+		delete_data(&input->data);
+		delete_graph(&input->graph);
+		free(input);
+		exit(-1);
 	}
 }
 

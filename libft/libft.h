@@ -6,7 +6,7 @@
 /*   By: bgerda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 18:50:35 by bgerda            #+#    #+#             */
-/*   Updated: 2020/01/23 16:38:25 by bgerda           ###   ########.fr       */
+/*   Updated: 2020/03/28 21:57:35 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					get_next_line(const int fd, char **line);
+int					ft_content_free(t_list *list);
 #endif

@@ -6,7 +6,7 @@
 #    By: bgerda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/07 16:36:06 by bgerda            #+#    #+#              #
-#    Updated: 2020/02/24 15:07:44 by bgerda           ###   ########.fr        #
+#    Updated: 2020/03/28 21:56:29 by student          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS	=	ft_lstiter.c ft_putendl.c ft_strequ.c ft_strnstr.c \
 			ft_strcmp.c ft_strncmp.c ft_lstadd.c ft_memset.c \
 			ft_strcpy.c ft_strncpy.c ft_lstdel.c ft_putchar.c \
 			ft_strdel.c ft_strnequ.c ft_lstdelone.c ft_putchar_fd.c \
-			ft_strdup.c ft_strnew.c get_next_line.c 
+			ft_strdup.c ft_strnew.c get_next_line.c ft_content_free.c 
 
 OBJECTS	=	ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o \
 			ft_isascii.o ft_isdigit.o ft_isprint.o ft_itoa.o \
@@ -42,7 +42,7 @@ OBJECTS	=	ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o \
 			ft_strmapi.o ft_strncat.o ft_strncmp.o ft_strncpy.o \
 			ft_strnequ.o ft_strnew.o ft_strnstr.o ft_strrchr.o \
 			ft_strsplit.o ft_strstr.o ft_strsub.o ft_strtrim.o \
-			ft_tolower.o ft_toupper.o get_next_line.o
+			ft_tolower.o ft_toupper.o get_next_line.o ft_content_free.o
 
 INCLUDES=./includes
 

@@ -6,7 +6,7 @@
 /*   By: student <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 01:23:28 by student           #+#    #+#             */
-/*   Updated: 2020/03/28 01:23:30 by student          ###   ########.fr       */
+/*   Updated: 2020/03/28 21:42:50 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		main(void)
 	t_paths	*paths;
 	t_data	*data;
 	t_room	*input;
-	
+
 	fd = 0;
 	graph = init_graph();
 	data = init_data();
