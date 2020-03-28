@@ -39,11 +39,8 @@ int		main(int argc, char **argv)
 	t_paths	*paths;
 	t_data	*data;
 	t_room	*input;
-
-	if (argc > 1)
-		fd = open(argv[1], O_RDONLY);
-	else
-		fd = 0;
+	
+	fd = 0;
 	graph = init_graph();
 	data = init_data();
 	input = init_input(graph, data, fd);
