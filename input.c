@@ -54,7 +54,11 @@ void	get_ant(t_room *input)
 		ft_putstr_fd("ERROR at line ", (int)STDERR_FILENO);
 		ft_putnbr_fd(input->i, (int)STDERR_FILENO);
 		ft_putstr_fd(" bad ants", (int)STDERR_FILENO);
-		ft_error(input, 0);
+		free(input->line);
+        delete_data(&input->data);
+        delete_graph(&input->graph);
+        free(input);
+        exit(-1);
 	}
 }
 

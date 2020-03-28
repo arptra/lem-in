@@ -36,13 +36,13 @@ t_vertice_node	*getnth(t_graph *graph, char *src,
 	save = tmp;
 	if (s == 0 && l != 0)
 	{
-		iter_graph(tmp, link);
+		tmp = iter_graph(tmp, link);
 		*ref = tmp;
 		return (save);
 	}
 	else if (l == 0 && s != 0)
 	{
-		iter_graph(tmp, src);
+		tmp = iter_graph(tmp, src);
 		*ref = save;
 		return (tmp);
 	}
