@@ -118,8 +118,6 @@ def parse_solution_str(solution_str, map):
     solution_step = 1
 
     for line in solution_buf:
-        if line.startswith('ERROR'):
-            raise Exception(line)
 
         # eliminate trailing \n
         line = line.strip()

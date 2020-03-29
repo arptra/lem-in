@@ -3,6 +3,8 @@ import sys
 from dataclasses import dataclass
 import math
 from collections import defaultdict
+from itertools import groupby
+from operator import attrgetter
 
 from PySide2.QtWidgets import QApplication, QOpenGLWidget, QVBoxLayout, QLabel, QSizePolicy
 from PySide2.QtGui import QPainter, QPen, QBrush, QColor, QPainterPath, QTransform, QStaticText
@@ -92,15 +94,13 @@ class View(QOpenGLWidget):  # inherit from QOpenGLWidget to enable opengl backen
     def create_solution_paths(self):
         self.solution_paths = []
 
-        # use set to avoid path duplication for ants that come the same path
-        unique_paths = set()
-
+        # group ants by paths
+        self.path_ants = defaultdict(list)
         for ant in self.solution.ants.values():
-            path = ant.path
-            if path not in unique_paths:
-                unique_paths.add(path)
+            self.path_ants[ant.path].append(ant)
 
-        for path in unique_paths:
+        # add ant paths to view
+        for path in self.path_ants:
             qpath = QPainterPath()
             for link in path.links:
                 from_ = link.from_.coords
@@ -110,13 +110,6 @@ class View(QOpenGLWidget):  # inherit from QOpenGLWidget to enable opengl backen
                 qpath.lineTo(to_.x, to_.y)
 
             self.solution_paths.append(qpath)
-
-        # group ants by paths
-        self.path_ants = defaultdict(list)
-        for path in unique_paths:
-            for ant in self.solution.ants.values():
-                if path == ant.path:
-                    self.path_ants[path].append(ant)
 
     def create_pens(self):
         pen = QPen(QColor("#33434B"), 3)

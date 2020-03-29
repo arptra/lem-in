@@ -17,9 +17,6 @@ def extract_map_and_solution(input_data):
     # find solution begin or ERROR msg in given input str
     solution_begin = re.search('^L', input_data, re.MULTILINE)
 
-    if solution_begin is None:
-        solution_begin = re.search('^ERROR', input_data, re.MULTILINE)
-
     i1, i2 = tee(input_data)
 
     # build two iterators
@@ -44,6 +41,10 @@ else:
 
     with open(map_solution_filename) as map_file:
         input_data = map_file.read()
+
+# no data provided on standard input
+if len(input_data) == 0:
+    sys.exit()
 
 try:
     map_data, solution_data = extract_map_and_solution(input_data)

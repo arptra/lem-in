@@ -24,10 +24,10 @@ class Link:
     def __hash__(self):
         return id(self.from_) ^ id(self.to_)
 
-    # straight and reverse links are equal
+    # straight and reverse links are compared equal
     def __eq__(self, other):
-        return id(self.from_) == id(other.from_) and id(self.to_) == id(other.to_) or \
-            id(self.from_) == id(other.to_) and id(self.to_) == id(other.to_)
+        return self.from_ is other.from_ and self.to_ is other.to_ or \
+            self.from_ is other.to_ and self.to_ is other.from_
 
 
 class Map:
