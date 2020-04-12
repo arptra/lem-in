@@ -10,6 +10,8 @@ for test: ./lem-in < maps/test2.map
 visualization is implemented in __python 3__
 using [pyside2](https://pypi.org/project/PySide2/) - Qt framework port for python - for graphics
 
+![Alt Text](https://github.com/arptra/lem-in/blob/master/demo/lem_in_demo.gif)
+
 
 # installing dependencies
 ```
